@@ -1,0 +1,21 @@
+<!-- ============================================================== -->
+<!-- Only router without any element -->
+<!-- ============================================================== -->
+<mat-sidenav-container
+  class="blue_theme light-theme"
+  autosize
+  autoFocus
+  dir="ltr"
+>
+<mat-sidenav-content class="contentWrapper" #content>
+
+  <app-header-auth [showToggle]="!isOver" (toggleCollapsed)="toggleCollapsed()"
+    (toggleMobileNav)="sidenav.toggle()"></app-header-auth>
+
+
+  <main>
+      <router-outlet></router-outlet>
+    </main>
+</mat-sidenav-content>
+
+</mat-sidenav-container>

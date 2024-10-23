@@ -1,0 +1,13 @@
+{
+    "login":{
+        "google": "Sign in with Google",
+        "or_with": "or sign in with",
+        "username": "Username",
+        "password": "Password",
+        "remember_this_device": "Remember this Device",
+        "signin": "Sign In",
+        "forgot_password": "Forgot Password?",
+        "new_in_cointribe": "New to Cointribe?",
+        "create_account": "Create an account"
+    }
+}
