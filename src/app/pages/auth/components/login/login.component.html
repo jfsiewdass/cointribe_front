@@ -1,0 +1,76 @@
+<div class="blank-layout-container justify-content-center align-items-center bg-light">
+  <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
+    <div class="col-lg-4 d-flex align-items-center">
+      <mat-card class="cardWithShadow boxed-auth">
+        <mat-card-content>
+         
+          
+          <div class="text-center">
+            <a [routerLink]="['/dashboard']" style="text-decoration: none;">
+              
+              <h1 class="d-flex align-items-center justify-content-center">
+                <img src="./assets/images/logos/logo-2.svg" class="align-middle m-2" alt="logo"  [height]="50"/>
+                <span style="color: #000;font-family: Plus Jakarta Sans;">Cointribe</span>
+              </h1>
+            </a>
+          </div>
+
+          <div class="row m-t-24 custom-row">
+            <div class="col-12 text-center">
+              <!-- <button mat-stroked-button class="w-100" (click)="loginWithGoogle()">
+                <div class="d-flex align-items-center">
+                  <img src="/assets/images/svgs/google-icon.svg" alt="google" width="16" class="m-r-8" />
+                  {{ 'login.google' | translate }}
+                </div>
+              </button> -->
+              <asl-google-signin-button 
+                  type='standard' 
+                  size='large' 
+                  text="signin_with"
+                  logo_alignment="left"
+                  shape="rectangular"
+                  style="width: 100% !important;"
+                  text="signup_with"
+                  class="custom-google-button w-100 text-center">
+              </asl-google-signin-button>
+            
+            </div>
+           
+          </div>
+
+          <div class="or-border m-20">{{ 'login.or_with' | translate }}</div>
+
+          <form [formGroup]="form" (ngSubmit)="submit()">
+
+            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
+              <mat-label>{{ 'login.username' | translate }}</mat-label>
+              <input matInput formControlName="email"/>
+              <mat-error *ngIf="form.get('email')?.hasError('required')"> Campo requerido </mat-error>
+              <mat-error *ngIf="form.get('email')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
+            </mat-form-field>
+            <!-- password -->
+            <mat-form-field appearance="outline" class="w-100  m-b-12" color="primary">
+              <mat-label>{{ 'login.password' | translate }}</mat-label>
+              <input matInput type="password" formControlName="password"/>
+              <mat-error *ngIf="form.get('password')?.hasError('required')"> Campo requerido </mat-error>
+              <mat-error *ngIf="form.get('password')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
+            </mat-form-field>
+
+            <div class="d-flex align-items-center m-b-12">
+              <mat-checkbox color="primary">{{ 'login.remember_this_device' | translate }}</mat-checkbox>
+              <a [routerLink]="['/auth/forgot-password']" class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14">{{ 'login.forgot_password' | translate }}</a>
+            </div>
+            <button type="submit" mat-flat-button color="primary" class="w-100">
+              {{ 'login.signin' | translate }}
+            </button>
+            <!-- input -->
+          </form>
+          <span class="d-block f-w-500 text-center m-t-24">{{ 'login.new_in_cointribe' | translate }}
+            <a [routerLink]="['/auth/register']" class="text-decoration-none text-primary f-w-500 f-s-14">
+              {{ 'login.signup' | translate }}</a>
+            </span>
+        </mat-card-content>
+      </mat-card>
+    </div>
+  </div>
+</div>

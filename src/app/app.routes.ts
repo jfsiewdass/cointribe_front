@@ -1,6 +1,8 @@
-import { Routes } from '@angular/router';
-import { BlankComponent } from './layouts/blank/blank.component';
-import { FullComponent } from './layouts/full/full.component';
+import { Router, Routes } from '@angular/router';
+import { FullComponent } from './core/layouts/full/full.component';
+import { BlankComponent } from './core/layouts/blank/blank.component';
+import { inject } from '@angular/core';
+import { TokenService } from './core/services/token.service';
 
 export const routes: Routes = [
   {
@@ -9,13 +11,20 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/dashboard',
+        redirectTo: '/admin',
         pathMatch: 'full',
       },
       {
-        path: 'dashboard',
+        path: 'admin',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
+        canActivate: [() => {
+          if (inject(TokenService).isLogged())  return true;
+          else {
+            inject(Router).navigate(['/auth/login']);
+            return false;
+          }
+        }]
       },
     //   {
     //     path: 'ui-components',
@@ -36,9 +45,9 @@ export const routes: Routes = [
     component: BlankComponent,
     children: [
       {
-        path: 'authentication',
+        path: 'auth',
         loadChildren: () =>
-          import('./pages/authentication/authentication.routes').then(
+          import('./pages/auth/authentication.routes').then(
             (m) => m.AuthenticationRoutes
           ),
       },

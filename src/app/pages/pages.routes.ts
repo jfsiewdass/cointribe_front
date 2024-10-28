@@ -1,10 +1,14 @@
 import { Routes } from '@angular/router';
-import { StarterComponent } from './starter/starter.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { InvestmentComponent } from './investment/components/investment/investment.component';
+import { DepositComponent } from './deposits/components/deposit/deposit.component';
+import { GamesComponent } from './games/components/games/games.component';
+import { DiceComponent } from './games/components/dice/dice.component';
 
 export const PagesRoutes: Routes = [
   {
     path: '',
-    component: StarterComponent,
+    component: DashboardComponent,
     data: {
       title: 'Starter',
       urls: [
@@ -13,4 +17,20 @@ export const PagesRoutes: Routes = [
       ],
     },
   },
+  {
+    path: 'investment',
+    component: InvestmentComponent
+  },
+  {
+    path: 'deposit',
+    component: DepositComponent
+  },
+  {
+    path: 'games',
+    component: GamesComponent,
+  },
+  {
+    path: 'dice',
+    component: DiceComponent
+  }
 ];

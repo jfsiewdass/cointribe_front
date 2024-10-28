@@ -1,0 +1,50 @@
+<mat-toolbar class="topbar">
+
+  <!-- Mobile Menu -->
+  <button mat-icon-button (click)="toggleMobileNav.emit()" class="d-flex d-md-none justify-content-center">
+    <!-- <i-tabler name="menu-2" class="icon-20 d-flex"></i-tabler> -->
+    <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="menu"></mat-icon>
+  </button>
+
+
+  <button mat-icon-button aria-label="Notifications">
+    <!-- <i-tabler class="d-flex" name="bell" matBadge="1" matBadgeColor="primary"></i-tabler> -->
+  </button>
+
+
+  <span class="flex-1-auto"></span>
+  <a mat-flat-button color="primary" href="#" class="d-flex justify-content-center"
+    routerLink="/admin/deposit">
+    {{ 'header.deposit' | translate }}
+  </a>
+  <!-- --------------------------------------------------------------- -->
+  <!-- profile Dropdown -->
+  <!-- --------------------------------------------------------------- -->
+  <button mat-button [matMenuTriggerFor]="languageMenu" aria-label="Languaje">
+    {{ lang | uppercase }}
+  </button>
+  <mat-menu #languageMenu="matMenu" class="cardWithShadow">
+    <button mat-menu-item *ngFor="let item of languages" (click)="changeLang(item.value)">
+      {{ item.name }}
+    </button>
+</mat-menu>
+  <button mat-icon-button [matMenuTriggerFor]="profilemenu" aria-label="Notifications">
+    <img src="/assets/images/profile/user-1.jpg" class="rounded-circle object-cover" width="35" />
+  </button>
+  <mat-menu #profilemenu="matMenu" class="cardWithShadow">
+    <button mat-menu-item>
+      <mat-icon class="d-flex align-items-center">
+        <!-- <i-tabler name="user" class="icon-18 d-flex"></i-tabler> -->
+      </mat-icon>{{ 'header.profile' | translate }}
+    </button>
+    <button mat-menu-item>
+      <mat-icon class="d-flex align-items-center">
+        <!-- <i-tabler name="mail" class="icon-18 d-flex"></i-tabler> -->
+      </mat-icon>{{ 'header.account' | translate }}
+    </button>
+
+    <div class="p-x-12 m-t-12">
+      <button (click)="logout()" mat-stroked-button color="primary" class="w-100">{{ 'header.logout' | translate }}</button>
+    </div>
+  </mat-menu>
+</mat-toolbar>

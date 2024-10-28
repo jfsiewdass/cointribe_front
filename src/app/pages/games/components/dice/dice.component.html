@@ -1,0 +1,16 @@
+<div class="dice-roll-container">
+  <div class="dice-wrapper row">
+
+      <fa-icon [icon]="currentFace[0]" class="dice-icon col-6" [ngClass]=
+    "{ 'rolling': isRolling }"></fa-icon>
+
+      <fa-icon [icon]="currentFace[1]" class="dice-icon col-6" [ngClass]=
+      "{ 'rolling': isRolling }"></fa-icon>
+    </div>
+
+
+    <button (click)="rollDice()" [disabled]="isRolling" class="roll-button primary" mat-flat-button color="primary">Roll Dice
+  </button>
+
+    <div *ngIf="result" class="result">{{ result }}</div>
+</div>

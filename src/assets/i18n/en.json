@@ -1,5 +1,17 @@
 {
-    "login":{
+    "header": {
+        "profile": "My Profile",
+        "account": "Acoount",
+        "logout": "logout",
+        "deposit": "Deposit"
+    },
+    "sidebar": {
+        "home": "HOME",
+        "dashboard": "Dashboard",
+        "investment": "Investment",
+        "games":"games"
+    },
+    "login": {
         "google": "Sign in with Google",
         "or_with": "or sign in with",
         "username": "Username",
@@ -8,6 +20,32 @@
         "signin": "Sign In",
         "forgot_password": "Forgot Password?",
         "new_in_cointribe": "New to Cointribe?",
-        "create_account": "Create an account"
+        "signup": "Create an account"
+    },
+    "register": {
+        "google": "Sign in with Google",
+        "or_with": "or sign up with",
+        "name": "Name",
+        "email": "Email address",
+        "password": "Password",
+        "signup": "Sign Up",
+        "forgot_password": "Forgot Password?",
+        "has_an_account": "Already have an Account?",
+        "signin": "Sign In"
+    },
+    "forgot-password":{
+        "title": "Forgot my password",
+        "send": "Send",
+        "back": "Back"
+    },
+    "investment":{
+        "title": "Subscribe now",
+        "sub-title": "You can easily subscribe to the locked term service. Rewards distribution, subscription and redemption processes are now more streamlined and easier to use",
+        "balance": "Actual balance",
+        "storage": "Storage",
+        "to-fill": "to fill",
+        "USDT-hour": "USDT/hour",
+        "subscribe-btn": "Subscribe",
+        "claim-btn": "Claim"
     }
 }

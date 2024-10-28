@@ -1,4 +1,15 @@
 {
+    "header": {
+        "profile": "Mi perfil",
+        "account": "Cuenta",
+        "logout": "Salir",
+        "deposit": "Depositar"
+    },
+    "sidebar": {
+        "home": "INICIO",
+        "dashboard": "Tablero",
+        "investment": "Inversión"
+    },
     "login":{
         "google": "Inicia sesión con Google",
         "or_with": "O inicia sesión con",
@@ -6,7 +17,33 @@
         "password": "Contraseña",
         "remember_this_device": "Recordar este equipo",
         "forgot_password": "¿Olvido su contraseña?",
+        "signin": "Inicia sesión",
         "new_in_cointribe": "¿Nuevo en Cointribe?",
-        "create_account": "Crear cuenta"
+        "signup": "Crear cuenta"
+    },
+    "register":{
+        "google": "registrate con Google",
+        "or_with": "o registrate con",
+        "name": "Nombres",
+        "email": "Correo electrónico",
+        "password": "Contraseña",
+        "signup": "Registrar",
+        "has_an_account": "¿Ya tienes cuenta?",
+        "signin": "Inicia sesión"
+    },
+    "forgot-password":{
+        "title": "Olvide mi contraseña",
+        "send": "Enviar",
+        "back": "Atras"
+    },
+    "investment":{
+        "title": "Suscríbete ahora",
+        "sub-title": "Puedes suscribirte fácilmente al servicio a plazo bloqueado. Los procesos de distribución, suscripción y canje de recompensas ahora son más ágiles y fáciles de utilizar",
+        "balance": "Balance actual",
+        "storage": "Almacenamiento",
+        "to-fill": "para completar",
+        "USDT-hour": "USDT/hora",
+        "subscribe-btn": "Suscribir",
+        "claim-btn": "Reclamar"
     }
 }

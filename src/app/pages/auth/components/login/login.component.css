@@ -1,0 +1,24 @@
+.nsm7Bb-HzV7m-LgbsSe, .nsm7Bb-HzV7m-LgbsSe-MJoBVe{
+    width: 100% !important;
+}
+.custom-google-button {
+    background-color: #4285f4;
+    color: white;
+    border-radius: 10px;
+    /* Otros estilos personalizados */
+  }
+  .nsm7Bb-HzV7m-LgbsSe .nsm7Bb-HzV7m-LgbsSe-BPrWId {
+    -webkit-flex-grow: 1;
+    flex-grow: 1;
+    font-family: "Google Sans", arial, sans-serif;
+    font-weight: 500;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    vertical-align: top;
+    background-color: #4285f4;
+    color: white;
+    border-radius: 10px;
+}
+.mat-mdc-form-field-required-marker, .mdc-floating-label--required {
+  display: none;
+}

@@ -1,0 +1,16 @@
+@if(item.navCap){
+<div mat-subheader class="nav-caption">
+  {{ 'sidebar.'+item.navCap | translate  }}
+</div>
+} @if(!item.navCap && !item.external && !item.twoLines) {
+<a mat-list-item (click)="onItemSelected(item)" [ngClass]="{
+      'mat-toolbar mat-primary activeMenu': item.route
+        ? router.isActive(item.route, true)
+        : false,
+    }" class="menu-list-item">
+  <div class="d-flex align-items-center">
+    <mat-icon aria-hidden="false" fontIcon="{{ item.iconName }}" style="margin-right: 10px;"></mat-icon>
+    <span class="hide-menu">{{ 'sidebar.'+item.displayName | translate }}</span>
+  </div>
+</a>
+}
