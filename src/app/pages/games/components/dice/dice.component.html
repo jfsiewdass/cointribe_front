@@ -1,16 +1,93 @@
 <div class="dice-roll-container">
   <div class="dice-wrapper row">
+    <fa-icon
+      [icon]="currentFace[0]"
+      class="dice-icon col-4"
+      [ngClass]="{ rolling: isRolling }"
+    ></fa-icon>
+    <fa-icon
+      [icon]="currentFace[1]"
+      class="dice-icon col-4"
+      [ngClass]="{ rolling: isRolling }"
+    ></fa-icon>
+    <fa-icon
+      [icon]="currentFace[2]"
+      class="dice-icon col-4"
+      [ngClass]="{ rolling: isRolling }"
+    ></fa-icon>
+  </div>
 
-      <fa-icon [icon]="currentFace[0]" class="dice-icon col-6" [ngClass]=
-    "{ 'rolling': isRolling }"></fa-icon>
-
-      <fa-icon [icon]="currentFace[1]" class="dice-icon col-6" [ngClass]=
-      "{ 'rolling': isRolling }"></fa-icon>
-    </div>
-
-
-    <button (click)="rollDice()" [disabled]="isRolling" class="roll-button primary" mat-flat-button color="primary">Roll Dice
+  <button
+    (click)="rollDice()"
+    [disabled]="isEnableToRoll"
+    class="roll-button primary"
+    mat-flat-button
+    color="primary"
+  >
+    Roll Dice
   </button>
 
-    <div *ngIf="result" class="result">{{ result }}</div>
+  <div
+    *ngIf="result"
+    class="result"
+    [ngClass]="{ won: result == 'won', lost: result == 'lost' }"
+  >
+    You {{ result }}
+  </div>
 </div>
+<div class="row">
+  <div class="col-md-12">
+    <h3>Opciones a elegir</h3>
+    <!-- #pair="asas" (change)="onValChange(pair.value)" -->
+    <div class="row">
+      <div class="col-md-4">
+        <mat-button-toggle-group multiple class="w-100 m-2" value="aPair" (change)="enable(0)">
+        <mat-button-toggle value="aPair" class="w-100">Un par y seguido <strong>X3</strong></mat-button-toggle>
+      </mat-button-toggle-group>
+      </div>
+      <div class="col-md-4">
+        <mat-button-toggle-group multiple class="w-100 m-2" value="consecutive" (change)="enable(1)">
+        <mat-button-toggle value="consecutive" class="w-100">Tres seguidos <strong>X3</strong></mat-button-toggle>
+      </mat-button-toggle-group>
+      </div>
+      <div class="col-md-4">
+        <mat-button-toggle-group multiple class="w-100 m-2" value="equal"  (change)="enable(2)">
+        <mat-button-toggle value="equal" class="w-100">Tres iguales <strong>X3</strong></mat-button-toggle>
+      </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="m-t-20 col-md-5">
+    <form [formGroup]="form" (submit)="activeRollBtn()">
+      <mat-form-field appearance="outline" class="w-100" color="primary">
+        <mat-label>{{ 'deposit.currency' | translate }}</mat-label>
+        <input matInput formControlName="amount" type="number"/>
+          <button matSuffix mat-icon-button aria-label="Clear" (click)="clean()">
+            <mat-icon aria-hidden="false" [fontIcon]="'close'" style="margin-right: 10px;"></mat-icon>
+          </button>
+      </mat-form-field>
+      <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(1)">1</button>
+      <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(2)">2</button>
+      <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(5)">5</button>
+      <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(10)">10</button>
+      <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(50)">50</button>
+      <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(100)">100</button>
+      <button mat-flat-button color="primary" class="w-100 m-t-10" [disabled]="form.invalid" type="submit">Hacer una apuesta</button>
+    </form>
+   
+  </div>
+  <div class="col-md-6">
+    <h2>El Desafío de los Dados</h2>
+    <p>
+      ¿Te sientes afortunado? ¡Pon a prueba tu suerte en nuestro emocionante
+      juego de dados!
+    </p>
+    <p style="margin-bottom: 40px">
+      Lanzaremos dos dados y tú deberás apostar si el primer dado será mayor,
+      igual o menor que el segundo. ¡Es simple, rápido y lleno de adrenalina!
+      ¿Te atreves a desafiar a la suerte y llevarte un gran premio?
+    </p>
+  </div>
+</div>
+

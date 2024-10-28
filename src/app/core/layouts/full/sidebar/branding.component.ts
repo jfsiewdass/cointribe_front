@@ -10,7 +10,7 @@ import { RouterModule } from '@angular/router';
       <a [routerLink]="['/']" style="text-decoration: none;">
         <div class="d-flex align-items-center justify-content-center">
           <img
-            src="./assets/images/logos/logo-2.svg"
+            src="./assets/images/logos/logo.svg"
             class="align-middle"
             alt="logo"
             [height]="50"

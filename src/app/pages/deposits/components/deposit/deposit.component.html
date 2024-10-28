@@ -1,24 +1,43 @@
 
 <div class="row">
-    <div class="col-lg-10 d-flex align-items-center">
-        <mat-card class="cardWithShadow boxed-auth">
+    <div class="col-lg-12">
+        <mat-card >
           <mat-card-content>
     
-            <form class="m-t-10">
+            <form class="m-t-10" [formGroup]="form">
               <mat-form-field appearance="outline" class="w-100" color="primary">
-                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">{{ 'login.username' | translate }}</mat-label>
-                <input matInput />
+                <mat-label>{{ 'deposit.currency' | translate }}</mat-label>
+                <input matInput formControlName="currency"/>
+               
+                  <div matPrefix mat-icon-button aria-label="Clear">
+                    <img src="/assets/images/Tether.png" alt="" [height]="30" class="m-x-10">
+                  </div>
+                
               </mat-form-field>
               <!-- password -->
               <mat-form-field appearance="outline" class="w-100" color="primary">
-                <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">{{ 'login.password' | translate }}</mat-label>
-                <input matInput type="password" />
+                <mat-label>{{ 'deposit.network' | translate }}</mat-label>
+                <div matPrefix mat-icon-button aria-label="Clear">
+                  <img src="/assets/images/bsc.png" alt="" [height]="30" class="m-x-10">
+                </div>
+                <input matInput formControlName="network"/>
               </mat-form-field>
     
-             
-              <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <mat-label>{{ 'deposit.wallet' | translate }}</mat-label>
+                <div class="d-flex align-items-center">
+                  <qrcode [qrdata]="'TDpNb7voXx8oDbwyJ2jWLCpucb9URxCKcB'" [width]="100" [errorCorrectionLevel]="'M'"></qrcode>
+                  <textarea matInput formControlName="wallet" readonly ></textarea>
+                  <button matSuffix mat-icon-button aria-label="Clear" (click)="copy()">
+                    <mat-icon aria-hidden="false" [fontIcon]="copyIcon" style="margin-right: 10px;"></mat-icon>
+                  </button>
+                </div>
+                <mat-hint>Depósito mínimo: <strong>Más de 0.01 USDT</strong></mat-hint>
+              </mat-form-field>
+    
+              <!-- <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
                 {{ 'login.signin' | translate }}
-              </a>
+              </a> -->
               <!-- input -->
             </form>
             
@@ -26,3 +45,50 @@
         </mat-card>
       </div>
 </div>
+<h3>Depósitos</h3>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8 demo-table">
+  <!-- Position Column -->
+  <ng-container matColumnDef="date">
+    <th mat-header-cell *matHeaderCellDef>Fecha</th>
+    <td mat-cell *matCellDef="let element">{{element.date}}</td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="wallet">
+    <th mat-header-cell *matHeaderCellDef>Billetera de depósito</th>
+    <td mat-cell *matCellDef="let element">{{element.wallet}}</td>
+  </ng-container>
+
+  <!-- Weight Column -->
+  <ng-container matColumnDef="currency">
+    <th mat-header-cell *matHeaderCellDef>Moneda</th>
+    <td mat-cell *matCellDef="let element">{{element.currency}}</td>
+  </ng-container>
+
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="amount">
+    <th mat-header-cell *matHeaderCellDef>Cantidad</th>
+    <td mat-cell *matCellDef="let element">{{element.amount}}</td>
+  </ng-container>
+  <!-- Symbol Column -->
+  <ng-container matColumnDef="transactionId">
+    <th mat-header-cell *matHeaderCellDef>Id. de la transacción</th>
+    <td mat-cell *matCellDef="let element">
+      <a href="">
+        {{element.transactionId}}
+      </a>
+    </td>
+  </ng-container>
+<!-- Symbol Column -->
+<ng-container matColumnDef="status">
+  <th mat-header-cell *matHeaderCellDef>Estado</th>
+  <td mat-cell *matCellDef="let element">{{element.status}}</td>
+</ng-container>
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr
+      mat-row
+      (click)="clickedRows.add(row)"
+      [class.demo-row-is-clicked]="clickedRows.has(row)"
+      *matRowDef="let row; columns: displayedColumns;"
+  ></tr>
+</table>

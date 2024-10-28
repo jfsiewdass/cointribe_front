@@ -8,7 +8,8 @@
     "sidebar": {
         "home": "INICIO",
         "dashboard": "Tablero",
-        "investment": "Inversión"
+        "investment": "Inversión",
+        "games":"Juegos"
     },
     "login":{
         "google": "Inicia sesión con Google",
@@ -45,5 +46,10 @@
         "USDT-hour": "USDT/hora",
         "subscribe-btn": "Suscribir",
         "claim-btn": "Reclamar"
+    },
+    "deposit":{
+        "currency": "Moneda",
+        "network": "Red",
+        "wallet": "Dirección de depósito"
     }
 }

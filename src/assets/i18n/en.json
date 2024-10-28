@@ -47,5 +47,10 @@
         "USDT-hour": "USDT/hour",
         "subscribe-btn": "Subscribe",
         "claim-btn": "Claim"
+    },
+    "deposit":{
+        "currency": "Currency",
+        "network": "Nerwork",
+        "wallet": "Wallet address"
     }
 }
