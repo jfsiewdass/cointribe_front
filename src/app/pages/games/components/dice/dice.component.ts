@@ -17,6 +17,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import gsap from 'gsap';
 @Component({
   selector: 'app-dice',
   standalone: true,
@@ -43,7 +44,7 @@ export class DiceComponent {
   isRolling: boolean = false;
   isEnableToRoll: boolean = true;
   result = '';
-  elected: Array<any> = [{value: 'aPair', enable: true}, {value:'consecutive', enable: true}, {value:'equal', enable: true}];
+  elected: Array<any> = [{value: 'aPair', enable: true}, {value:'consecutive', enable: true}, {value:'equal', enable: true},  {value:'aPairConsecutive', enable: true}];
   form!: FormGroup;
 
   ngOnInit() {
@@ -56,22 +57,18 @@ export class DiceComponent {
     });
   }
   rollDice() {
-    if (this.isRolling) return;
-    this.isRolling = true;
-    this.result = '';
+    if (this.isRolling) return
 
+    this.isRolling = true
+    this.result = ''
+    
+    this.rollingDices()
     setTimeout(() => {
-      this.result = '';
       setTimeout(() => {
-        const randomFirstDice = Math.floor(
-          Math.random() * this.diceFaces.length
-        );
-        const randomSecondDice = Math.floor(
-          Math.random() * this.diceFaces.length
-        );
-        const randomThirdDice = Math.floor(
-          Math.random() * this.diceFaces.length
-        );
+        const randomFirstDice = this.generateRandomDice()
+        const randomSecondDice = this.generateRandomDice()
+        const randomThirdDice = this.generateRandomDice()
+        
         this.currentFace = [
           this.diceFaces[randomFirstDice],
           this.diceFaces[randomSecondDice],
@@ -90,19 +87,26 @@ export class DiceComponent {
               randomSecondDice,
               randomThirdDice,
             ])) ||
-          // TWO EQUIAL AND ONE CONSECUTIVE
-          (this.elected.find((e) => e.value == 'aPair' && e.enable == true) &&
+          // TWO EQUAL AND ONE CONSECUTIVE
+          (this.elected.find((e) => e.value == 'aPairConsecutive' && e.enable == true) &&
             this.twoEqualAndOneConsecutive([
               randomFirstDice,
               randomSecondDice,
               randomThirdDice,
-            ]))
+            ])) ||
+           // A PAIR
+           (this.elected.find((e) => e.value == 'aPair' && e.enable == true) &&
+           this.pair([
+             randomFirstDice,
+             randomSecondDice,
+             randomThirdDice,
+           ]))
         ) {
-          this.result = 'won';
+          this.result = 'win'
         } else {
-          this.result = 'lost';
+          this.result = 'lose'
         }
-        this.isRolling = false;
+        this.isRolling = false
         this.isEnableToRoll = true
       }, 1500);
     }, 100);
@@ -114,9 +118,7 @@ export class DiceComponent {
   }
 
   areConsecutives(numbers: Array<number>) {
-    // Ordenamos el array de menor a mayor
     numbers.sort((a, b) => a - b);
-    // Verificamos si la diferencia entre cada número consecutivo es 1
     return numbers[1] - numbers[0] === 1 && numbers[2] - numbers[1] === 1;
   }
 
@@ -132,7 +134,31 @@ export class DiceComponent {
     }
     return iguales === 1;
   }
+  pair(numbers: Array<number>) {
+    const counts: any = {};
+    numbers.forEach(num => {
+      counts[num] = (counts[num] || 0) + 1;
+    });
+ 
+    let foundPair = false;
+    for (const count of Object.values(counts)) {
+      if (count === 2) {
+        if (foundPair) {
+          return false;
+        }
+        foundPair = true;
+      }
+    }
 
+    numbers.sort((a, b) => a - b);
+    for (let i = 1; i < numbers.length; i++) {
+      if (numbers[i] - numbers[i - 1] === 1) {
+        return false;
+      }
+    }
+    
+    return foundPair;
+  }
   clean() {
     this.form.reset();
   }
@@ -143,8 +169,26 @@ export class DiceComponent {
 
   enable(i: number){
     this.elected[i].enable = !this.elected[i].enable;
-    console.log('====================================');
-    console.log(this.elected[i].enable, i);
-    console.log('====================================');
+  }
+
+  rollingDices() {
+    const tl = gsap.timeline();
+    tl.to('.dice', { rotationY: 360, duration: 1 });
+    const interval = setInterval(() => {
+      this.currentFace = [
+        this.diceFaces[this.generateRandomDice()],
+        this.diceFaces[this.generateRandomDice()],
+        this.diceFaces[this.generateRandomDice()]
+      ];
+    }, 200);
+
+    setTimeout(() => {
+      clearInterval(interval);
+      tl.reverse();
+    }, 1000);
+  }
+
+  generateRandomDice(){
+    return Math.floor(Math.random() * this.diceFaces.length)
   }
 }

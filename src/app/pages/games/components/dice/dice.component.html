@@ -1,20 +1,24 @@
 <div class="dice-roll-container">
+  <h2>{{ 'games.dice.title' | translate }}</h2>
+    <p>
+      {{ 'games.dice.sub-title' | translate }}
+    </p>
   <div class="dice-wrapper row">
     <fa-icon
       [icon]="currentFace[0]"
       class="dice-icon col-4"
-      [ngClass]="{ rolling: isRolling }"
-    ></fa-icon>
+      ></fa-icon>
+      <!-- [ngClass]="{ rolling: isRolling }" -->
     <fa-icon
       [icon]="currentFace[1]"
       class="dice-icon col-4"
-      [ngClass]="{ rolling: isRolling }"
-    ></fa-icon>
+      ></fa-icon>
+      <!-- [ngClass]="{ rolling: isRolling }" -->
     <fa-icon
       [icon]="currentFace[2]"
       class="dice-icon col-4"
-      [ngClass]="{ rolling: isRolling }"
-    ></fa-icon>
+      ></fa-icon>
+      <!-- [ngClass]="{ rolling: isRolling }" -->
   </div>
 
   <button
@@ -24,41 +28,52 @@
     mat-flat-button
     color="primary"
   >
-    Roll Dice
+  {{ 'games.dice.roll' | translate }}
   </button>
 
   <div
     *ngIf="result"
     class="result"
-    [ngClass]="{ won: result == 'won', lost: result == 'lost' }"
+    [ngClass]="{ won: result == 'win', lost: result == 'lose' }"
   >
-    You {{ result }}
+  {{ 'games.dice.result.'+result | translate }}
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
-    <h3>Opciones a elegir</h3>
-    <!-- #pair="asas" (change)="onValChange(pair.value)" -->
+    <h3>{{ 'games.dice.options.title' | translate }}</h3>
+  </div>
+  <div class="col-md-6 m-b-20">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-button-toggle-group multiple class="w-100 m-2" value="aPair" (change)="enable(0)">
-        <mat-button-toggle value="aPair" class="w-100">Un par y seguido <strong>X3</strong></mat-button-toggle>
-      </mat-button-toggle-group>
+          <mat-button-toggle value="aPair" class="w-100">{{ 'games.dice.options.round' | translate }} <strong>X2</strong></mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
         <mat-button-toggle-group multiple class="w-100 m-2" value="consecutive" (change)="enable(1)">
-        <mat-button-toggle value="consecutive" class="w-100">Tres seguidos <strong>X3</strong></mat-button-toggle>
-      </mat-button-toggle-group>
+          <mat-button-toggle value="consecutive" class="w-100">{{ 'games.dice.options.patrol' | translate }} <strong>X3</strong></mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
-      <div class="col-md-4">
+      <div class="col-md-6">
+        <mat-button-toggle-group multiple class="w-100 m-2" value="aPairConsecutive" (change)="enable(0)">
+          <mat-button-toggle value="aPairConsecutive" class="w-100">{{ 'games.dice.options.look-out' | translate }} <strong>X3</strong></mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="col-md-6">
         <mat-button-toggle-group multiple class="w-100 m-2" value="equal"  (change)="enable(2)">
-        <mat-button-toggle value="equal" class="w-100">Tres iguales <strong>X3</strong></mat-button-toggle>
-      </mat-button-toggle-group>
+          <mat-button-toggle value="equal" class="w-100">{{ 'games.dice.options.tribilin' | translate }} <strong>X3</strong></mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+      <div class="col-md-6">
+        <mat-button-toggle-group multiple class="w-100 m-2" value="equal"  (change)="enable(2)">
+          <mat-button-toggle value="equal" class="w-100">{{ 'games.dice.options.record' | translate }} <strong>X5</strong></mat-button-toggle>
+        </mat-button-toggle-group>
       </div>
     </div>
   </div>
  
-  <div class="m-t-20 col-md-5">
+  <div class="col-md-5">
     <form [formGroup]="form" (submit)="activeRollBtn()">
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label>{{ 'deposit.currency' | translate }}</mat-label>
@@ -73,21 +88,17 @@
       <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(10)">10</button>
       <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(50)">50</button>
       <button type="button" mat-stroked-button aria-label="Clear" class="m-2" (click)="setAmount(100)">100</button>
-      <button mat-flat-button color="primary" class="w-100 m-t-10" [disabled]="form.invalid" type="submit">Hacer una apuesta</button>
+      <button mat-flat-button color="primary" class="w-100 m-t-10" [disabled]="form.invalid" type="submit">{{ 'games.dice.bet-button' | translate }}</button>
     </form>
    
   </div>
-  <div class="col-md-6">
-    <h2>El Desafío de los Dados</h2>
-    <p>
-      ¿Te sientes afortunado? ¡Pon a prueba tu suerte en nuestro emocionante
-      juego de dados!
-    </p>
+  <!-- <div class="col-md-6">
+    
     <p style="margin-bottom: 40px">
       Lanzaremos dos dados y tú deberás apostar si el primer dado será mayor,
       igual o menor que el segundo. ¡Es simple, rápido y lleno de adrenalina!
       ¿Te atreves a desafiar a la suerte y llevarte un gran premio?
     </p>
-  </div>
+  </div> -->
 </div>
 

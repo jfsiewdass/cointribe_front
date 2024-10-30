@@ -51,5 +51,25 @@
         "currency": "Moneda",
         "network": "Red",
         "wallet": "Dirección de depósito"
+    },
+    "games":{
+        "dice":{
+            "title": "Caída de dados",
+            "sub-title": "¿Te sientes afortunado? ¡Pon a prueba tu suerte en nuestro emocionante juego llamado Caída de dados!",
+            "roll": "Tirar los dados",
+            "options": {
+                "title": "Opciones a elegir",
+                "round": "Ronda",
+                "patrol": "Patrulla",
+                "look-out": "Vigía",
+                "tribilin": "Tribilín",
+                "record": "Registro"
+            },
+            "bet-button": "Hacer una apuesta",
+            "result":{
+                "win": "Ganaste",
+                "lose": "Perdiste"
+            }
+        }
     }
 }

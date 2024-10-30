@@ -52,5 +52,25 @@
         "currency": "Currency",
         "network": "Nerwork",
         "wallet": "Wallet address"
+    },
+    "games":{
+        "dice":{
+            "title": "Dice Fall",
+            "sub-title": "Do you feel lucky? Test your luck in our exciting game called Dice Fall!",
+            "roll": "Roll Dice",
+            "options": {
+                "title": "Options to choose",
+                "round": "Round",
+                "patrol": "Patrol",
+                "look-out": "Look out",
+                "tribilin": "Tribilin",
+                "record": "Record"
+            },
+            "bet-button": "Make a bet",
+            "result":{
+                "win": "You win",
+                "lose": "You lose"
+            }
+        }
     }
 }

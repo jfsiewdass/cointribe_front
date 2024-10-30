@@ -8,16 +8,19 @@ export const navItems: NavItem[] = [
     displayName: 'dashboard',
     iconName: 'dashboard',
     route: '/admin',
+    active: '/admin'
   },
   {
     displayName: 'investment',
     iconName: 'payments',
     route: '/admin/investment',
+    active: '/admin/investment'
   },
   {
     displayName: 'games',
     iconName: 'extension',
     route: '/admin/games',
+    active: '/admin/games'
   },
   // {
   //   displayName: 'Chips',
