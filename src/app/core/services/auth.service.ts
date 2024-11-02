@@ -18,25 +18,25 @@ export class AuthService {
   private router = inject(Router)
 
   login(body:any):Observable<UserData>{
-    const params = new HttpParams();
-    params.append('email', body.email)
-    params.append('password', body.password)
+    // const params = new HttpParams();
+    // params.append('email', body.email)
+    // params.append('password', body.password)
 
-    return this.httpClient.get<GenericResponse<UserData>>(`${this.env.apiUrl}${'/login'}`,{ params })
+    return this.httpClient.post<GenericResponse<UserData>>(`${this.env.apiUrl}${'user/login'}`,body)
     .pipe(
       switchMap(response =>
-        response.code === 200
+        response.statusCode === 200
           ? of(response.data)
-          : throwError(() => response.message)
+          : throwError(() => new Error(response.message))
       )
     );
   }
 
   logout():Observable<LogoutData>{
-    return this.httpClient.delete<GenericResponse<LogoutData>>(`${this.env.apiUrl}${'api/central/sessions'}`)
+    return this.httpClient.delete<GenericResponse<LogoutData>>(`${this.env.apiUrl}${'user/logout'}`)
     .pipe(
       switchMap(response =>
-        response.code === 200
+        response.statusCode === 200
           ? of(response.data)
           : throwError(() => response.message)
       )
@@ -47,7 +47,7 @@ export class AuthService {
     return this.httpClient.put<GenericResponse<RefreshTokenData>>(`${this.env.apiUrl}${'api/central/sessions'}`,refreshTokenBody)
     .pipe(
       switchMap(response =>
-        response.code === 200
+        response.statusCode === 200
           ? of(response.data)
           : throwError(() => response.message)
       )
@@ -56,6 +56,6 @@ export class AuthService {
 
   exitSystem(){
     sessionStorage.clear();
-    this.router.navigate(['']);
+    this.router.navigate(['/auth/login']);
   }
 }

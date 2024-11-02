@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   FormGroup,
   FormControl,
@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { AuthService } from '../../../../core/services/auth.service';
 import { UserData } from '../../../../core/intefaces/Auth';
 import { TokenService } from '../../../../core/services/token.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +27,6 @@ import { TokenService } from '../../../../core/services/token.service';
     MaterialModule,
     FormsModule,
     ReactiveFormsModule,
-    MatButtonModule,
     TranslateModule,
     GoogleSigninButtonModule
   ],
@@ -33,16 +34,17 @@ import { TokenService } from '../../../../core/services/token.service';
   styleUrl: './login.component.css'
 })
 export class AppLoginComponent {
-  constructor(
-    private router: Router,
-    private socialService:SocialAuthService,
-    private authService: AuthService,
-  private tokenService: TokenService) {}
+  private _snackBar = inject(MatSnackBar);
+  private _router = inject(Router);
+  private socialService = inject(SocialAuthService);
+  private authService = inject(AuthService);
+  private tokenService = inject(TokenService);
+  private snackbarService = inject(SnackbarService);
+
+  constructor() {}
     ngOnInit() {
       this.socialService.authState.subscribe((user) => {
-        console.log(user)
-        this.router.navigate(['/'])
-        //perform further logics
+        this._router.navigate(['/'])
       });
     }
 
@@ -56,20 +58,22 @@ export class AppLoginComponent {
   }
 
   submit() {
-    // console.log(this.form.value);
     this.authService.login(this.form.value).subscribe({
       next: (resp: any) => {
         this.tokenService.setAuthToken(resp.token);
         this.tokenService.setRefreshToken(resp.refreshToken)
+        console.log(resp);
+        
         this.tokenService.setUserData({
-          FirstName: resp.FirstName,
-          MiddleName: resp.MiddleName,
-          Surname: resp.Surname,
-          LastName: resp.LastName,
-          Rol: resp.Rol
+          email: resp.email,
+          wallet: resp.wallet
         });
-      this.router.navigate(['/']);
-      }
+      this._router.navigate(['/']);
+      },error: ({ error }) => {
+        console.log(error);
+        this.snackbarService.error(error);
+			},
+			complete: () => { }
     })
   }
   

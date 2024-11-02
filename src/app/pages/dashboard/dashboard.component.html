@@ -1,10 +1,8 @@
 <div class="row">
-  <div class="col-lg-8">
-    <app-sales-overview></app-sales-overview>
-  </div>
-  <div class="col-lg-4">
-    <app-yearly-breakup></app-yearly-breakup> 
-    <app-monthly-earnings></app-monthly-earnings>
+
+  <div class="col-lg-12">
+    <!-- <app-yearly-breakup></app-yearly-breakup>  -->
+    <app-monthly-earnings [wallet]="userData!.wallet"></app-monthly-earnings>
   </div>
 </div>
 

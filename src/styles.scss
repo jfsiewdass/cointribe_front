@@ -4,3 +4,17 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
+.message-danger > div {
+    background: #d9534f !important;
+}
+.message-danger > div > div > div > div > .mat-mdc-simple-snack-bar > div > button {
+    color: white !important;
+}
+
+.message-success > div {
+    background: #5cb85c
+    !important;
+}
+.message-success > div > div > div > div > .mat-mdc-simple-snack-bar > div > button {
+    color: white !important;
+}

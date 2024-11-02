@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, Input, ViewChild } from '@angular/core';
 import {
     ApexChart,
     ChartComponent,
@@ -12,6 +12,7 @@ import {
     NgApexchartsModule,
 } from 'ng-apexcharts';
 import { MaterialModule } from '../../../material.module';
+import { AuthWallet } from '../../intefaces/Auth';
 
 
 export interface monthlyChart {
@@ -33,6 +34,9 @@ export interface monthlyChart {
 })
 export class AppMonthlyEarningsComponent {
     @ViewChild('chart') chart: ChartComponent = Object.create(null);
+    @Input() wallet!: AuthWallet | null
+
+
     public monthlyChart!: Partial<monthlyChart> | any;
 
     constructor() {
@@ -77,5 +81,9 @@ export class AppMonthlyEarningsComponent {
                 },
             },
         };
+    }
+
+    ngOnInit() {
+        console.log(this.wallet);
     }
 }

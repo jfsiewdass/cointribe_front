@@ -12,6 +12,8 @@ import { languages } from '../../../mapData/languages';
 import { TranslationService } from '../../../services/translation.service';
 import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { MaterialModule } from '../../../../material.module';
+import { AuthService } from '../../../services/auth.service';
+import { SnackbarService } from '../../../services/snackbar.service';
 @Component({
   selector: 'app-header',
   standalone: true,
@@ -32,7 +34,9 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     private translationService: TranslationService,
-    private authService: SocialAuthService
+    private socialAuthService: SocialAuthService,
+    private authService: AuthService,
+    private snackbar: SnackbarService
   ) {
     const langStorage = localStorage.getItem('lng')
     this.lang = langStorage ? langStorage : translationService.defaultLang
@@ -43,7 +47,15 @@ export class HeaderComponent {
     this.lang = lang
   }
   async logout() {
-    this.router.navigate(['/auth/login'])
+    this.authService.logout().subscribe({
+      next: (resp) => {
+        this.authService.exitSystem();
+      },
+      error: (error:string) => {
+        this.authService.exitSystem();
+        this.snackbar.error(error);
+      },
+    })
   }
   goToDeposit() {
     this.router.navigate(['/admin/deposit'])

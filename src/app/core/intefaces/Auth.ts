@@ -3,17 +3,14 @@ export interface LoginRequest{
     password?: string;
 }
 export interface UserData{
-    Email:string,
-    FirstName:string,
-    MiddleName:string,
-    Surname:string,
-    LastName:string,
-    Token:string,
-    RefreshToken:string,
-    ElectionDate:string,
-    Rol:number
+    email:string,
+    wallet: AuthWallet
 }
-
+export interface AuthWallet {
+    address: string,
+    balance: number,
+    coin: string
+}
 export interface RefreshTokenData{
     Token:string,
     RefreshToken:string

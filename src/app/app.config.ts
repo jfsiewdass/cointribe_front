@@ -22,6 +22,8 @@ export function HttpLoaderFactory(http: HttpClient) {
 import { SocialAuthServiceConfig } from '@abacritt/angularx-social-login';
 import { GoogleLoginProvider } from '@abacritt/angularx-social-login';
 import { apiInterceptor } from './core/interceptors/api.interceptor';
+import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
+import { authInterceptor } from './core/interceptors/auth.interceptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -30,7 +32,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(
-      withInterceptors([apiInterceptor])
+      withInterceptors([apiInterceptor, authInterceptor])
     ),
     importProvidersFrom(
       FormsModule,
