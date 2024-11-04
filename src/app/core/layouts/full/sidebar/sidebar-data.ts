@@ -11,10 +11,10 @@ export const navItems: NavItem[] = [
     active: '/admin'
   },
   {
-    displayName: 'investment',
+    displayName: 'earn',
     iconName: 'payments',
-    route: '/admin/investment',
-    active: '/admin/investment'
+    route: '/admin/earn',
+    active: '/admin/earn'
   },
   {
     displayName: 'games',

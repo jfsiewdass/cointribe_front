@@ -1,79 +1,86 @@
 <div class="dice-roll-container">
   <h2>{{ 'games.dice.title' | translate }}</h2>
-    <p>
-      {{ 'games.dice.sub-title' | translate }}
-    </p>
+  <p>
+    {{ 'games.dice.sub-title' | translate }}
+  </p>
   <div class="dice-wrapper row">
-    <fa-icon
-      [icon]="currentFace[0]"
-      class="dice-icon col-4"
-      ></fa-icon>
-      <!-- [ngClass]="{ rolling: isRolling }" -->
-    <fa-icon
-      [icon]="currentFace[1]"
-      class="dice-icon col-4"
-      ></fa-icon>
-      <!-- [ngClass]="{ rolling: isRolling }" -->
-    <fa-icon
-      [icon]="currentFace[2]"
-      class="dice-icon col-4"
-      ></fa-icon>
-      <!-- [ngClass]="{ rolling: isRolling }" -->
+    <fa-icon [icon]="currentFace[0]" class="dice-icon col-4"></fa-icon>
+    <fa-icon [icon]="currentFace[1]" class="dice-icon col-4"></fa-icon>
+    <fa-icon [icon]="currentFace[2]" class="dice-icon col-4"></fa-icon>
   </div>
 
-  <button
-    (click)="rollDice()"
-    [disabled]="isEnableToRoll"
-    class="roll-button primary"
-    mat-flat-button
-    color="primary"
-  >
-  {{ 'games.dice.roll' | translate }}
+  <button (click)="rollDice()" [disabled]="isEnableToRoll" class="roll-button primary" mat-flat-button color="primary">
+    {{ 'games.dice.roll' | translate }}
   </button>
 
-  <div
-    *ngIf="result"
-    class="result"
-    [ngClass]="{ won: result == 'win', lost: result == 'lose' }"
-  >
-  {{ 'games.dice.result.'+result | translate }}
+  <div *ngIf="result" class="result" [ngClass]="{ won: result == 'win', lost: result == 'lose' }">
+    {{ 'games.dice.result.'+result | translate }}
   </div>
 </div>
 <div class="row">
   <div class="col-md-12">
     <h3>{{ 'games.dice.options.title' | translate }}</h3>
   </div>
-  <div class="col-md-6 m-b-20">
+  <div class="col-md-12 m-b-20">
+    <div class="row text-center">
+      <div class="col-md-3 col-6" [ngClass]="{isMobile: 'm-b-20'}">
+        <button mat-raised-button color="default" [matBadge]="bets.get('pair')" [matBadgeHidden]="bets.get('pair') == 0"
+          (click)="enable(1, 'pair')" class="w-100">
+          <fa-icon [icon]="faDiceSix" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceSix" class="m-2"></fa-icon>
+          <fa-icon [icon]="faQuestion" class="m-2"></fa-icon>
+          {{ isMobile ? '' : 'games.dice.options.round' | translate }} X1
+        </button>
+        <br><br>
+      </div>
+      <div class="col-md-3 col-6" [ngClass]="{isMobile: 'm-b-20'}">
+        <button mat-raised-button color="default" [matBadge]="bets.get('patrol')" [matBadgeHidden]="bets.get('patrol') == 0"
+          (click)="enable(1, 'patrol')" class="w-100">
+          <fa-icon [icon]="faDiceOne" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceTwo" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceThree" class="m-2"></fa-icon>
+          {{ isMobile ? '' : 'games.dice.options.patrol' | translate }} X3
+        </button>
+      </div>
+      <div class="col-md-3 col-6" [ngClass]="{isMobile: 'm-b-20'}">
+        <button mat-raised-button color="default" [matBadge]="bets.get('lookOut')" [matBadgeHidden]="bets.get('lookOut') == 0"
+          (click)="enable(1, 'lookOut')" class="w-100">
+          <fa-icon [icon]="faDiceOne" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceOne" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceTwo" class="m-2"></fa-icon>
+          {{ isMobile ? '' : 'games.dice.options.look-out' | translate }} X4
+        </button>
+      </div>
+      <div class="col-md-3 col-6" [ngClass]="{isMobile: 'm-b-20'}">
+        <button mat-raised-button color="default" [matBadge]="bets.get('tribilin')" [matBadgeHidden]="bets.get('tribilin') == 0"
+          (click)="enable(1, 'tribilin')" class="w-100">
+          <fa-icon [icon]="faDiceSix" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceSix" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceSix" class="m-2"></fa-icon>
+          {{ isMobile ? '' : 'games.dice.options.tribilin' | translate }} X5
+        </button>
+      </div>
+      
+    </div>
     <div class="row">
-      <div class="col-md-6">
-        <mat-button-toggle-group multiple class="w-100 m-2" value="aPair" (change)="enable(0)">
-          <mat-button-toggle value="aPair" class="w-100">{{ 'games.dice.options.round' | translate }} <strong>X2</strong></mat-button-toggle>
-        </mat-button-toggle-group>
+      <div class="col-3 col-md-4"></div>
+      
+      <div class="col-6 col-md-4" [ngClass]="{isMobile: 'm-b-20'}">
+        <br>
+        <button mat-raised-button color="default" [matBadge]="bets.get('record')" [matBadgeHidden]="bets.get('record') == 0"
+          (click)="enable(1, 'record')" class="w-100">
+          <fa-icon [icon]="faDiceOne" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceFive" class="m-2"></fa-icon>
+          <fa-icon [icon]="faDiceSix" class="m-2"></fa-icon>
+          {{ isMobile ? '' : 'games.dice.options.record' | translate }} X7
+        </button>
+        
       </div>
-      <div class="col-md-6">
-        <mat-button-toggle-group multiple class="w-100 m-2" value="consecutive" (change)="enable(1)">
-          <mat-button-toggle value="consecutive" class="w-100">{{ 'games.dice.options.patrol' | translate }} <strong>X3</strong></mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
-      <div class="col-md-6">
-        <mat-button-toggle-group multiple class="w-100 m-2" value="aPairConsecutive" (change)="enable(0)">
-          <mat-button-toggle value="aPairConsecutive" class="w-100">{{ 'games.dice.options.look-out' | translate }} <strong>X3</strong></mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
-      <div class="col-md-6">
-        <mat-button-toggle-group multiple class="w-100 m-2" value="equal"  (change)="enable(2)">
-          <mat-button-toggle value="equal" class="w-100">{{ 'games.dice.options.tribilin' | translate }} <strong>X3</strong></mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
-      <div class="col-md-6">
-        <mat-button-toggle-group multiple class="w-100 m-2" value="equal"  (change)="enable(2)">
-          <mat-button-toggle value="equal" class="w-100">{{ 'games.dice.options.record' | translate }} <strong>X5</strong></mat-button-toggle>
-        </mat-button-toggle-group>
-      </div>
+      <div class="col-3 col-md-4"></div>
     </div>
   </div>
- 
-  <div class="col-md-5">
+
+  <!-- <div class="col-md-5">
     <form [formGroup]="form" (submit)="activeRollBtn()">
       <mat-form-field appearance="outline" class="w-100" color="primary">
         <mat-label>{{ 'deposit.currency' | translate }}</mat-label>
@@ -91,14 +98,22 @@
       <button mat-flat-button color="primary" class="w-100 m-t-10" [disabled]="form.invalid" type="submit">{{ 'games.dice.bet-button' | translate }}</button>
     </form>
    
-  </div>
-  <!-- <div class="col-md-6">
-    
-    <p style="margin-bottom: 40px">
+  </div> -->
+  <div class="col-md-12">
+
+    <!-- <p style="margin-bottom: 40px">
       Lanzaremos dos dados y tú deberás apostar si el primer dado será mayor,
       igual o menor que el segundo. ¡Es simple, rápido y lleno de adrenalina!
       ¿Te atreves a desafiar a la suerte y llevarte un gran premio?
-    </p>
-  </div> -->
+    </p> -->
+  </div>
 </div>
-
+<button mat-mini-fab color="default" class="btn-set" (click)="setBet()">
+  <fa-icon [icon]="faArrowsRotate" style="font-size: 15px;"></fa-icon>
+</button>
+<button mat-mini-fab color="default" class="btn-clear" (click)="clearBet()">
+  <fa-icon [icon]="faRotateBack" style="font-size: 15px;"></fa-icon>
+</button>
+<button mat-fab color="primary" (click)="openBottomSheet()" class="btn-buy">
+  <fa-icon [icon]="faCoins" style="font-size: 20px;"></fa-icon>
+</button>

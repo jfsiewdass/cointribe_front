@@ -8,7 +8,7 @@
     "sidebar": {
         "home": "INICIO",
         "dashboard": "Tablero",
-        "investment": "Inversión",
+        "earn": "Earn",
         "games":"Juegos"
     },
     "login":{
@@ -37,6 +37,9 @@
         "send": "Enviar",
         "back": "Atras"
     },
+    "dashboard": {
+        
+    },
     "investment":{
         "title": "Suscríbete ahora",
         "sub-title": "Puedes suscribirte fácilmente al servicio a plazo bloqueado. Los procesos de distribución, suscripción y canje de recompensas ahora son más ágiles y fáciles de utilizar",
@@ -50,7 +53,14 @@
     "deposit":{
         "currency": "Moneda",
         "network": "Red",
-        "wallet": "Dirección de depósito"
+        "wallet": "Dirección de depósito",
+        "created_at": "Fecha",
+        "amount": "Monto",
+        "status": "Estatus",
+        "transactionId": "ID Transacción",
+        "type": "Transacción",
+        "confirmations": "Confirmaciones"
+        
     },
     "games":{
         "dice":{
@@ -71,5 +81,7 @@
                 "lose": "Perdiste"
             }
         }
-    }
+    },
+    "WITHDRAW": "Retiro",
+    "DEPOSIT": "Depósito"
 }

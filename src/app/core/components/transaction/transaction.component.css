@@ -1,0 +1,17 @@
+table {
+    width: 100%;
+    overflow-x: auto;
+    display: block;
+  }
+  
+  th, td {
+    padding: 16px;
+    text-align: left;
+  }
+  
+  @media (max-width: 600px) {
+    th, td {
+      display: block;
+      width: 100%;
+    }
+  }

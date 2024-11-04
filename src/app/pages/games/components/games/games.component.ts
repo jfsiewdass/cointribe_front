@@ -2,15 +2,18 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../../../../material.module';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { faDice } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-games',
   standalone: true,
-  imports: [CommonModule, RouterModule, MaterialModule],
+  imports: [CommonModule, RouterModule, MaterialModule, FontAwesomeModule],
   templateUrl: './games.component.html',
   styleUrl: './games.component.css',
 })
 export class GamesComponent {
+  faDice = faDice
   // Variables globales
   dados = [1, 1]; // Inicializamos con dos dados
   objetivo = 7; // Objetivo inicial

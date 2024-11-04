@@ -10,48 +10,28 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 import { TokenService } from '../../../../core/services/token.service';
 import { UserData } from '../../../../core/intefaces/Auth';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
-
-export interface PeriodicElement {
-  date: string;
-  wallet: string;
-  currency: string;
-  amount: number;
-  transactionId: string;
-  status: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {wallet: 'TDpNb7voXx8oDbwyJ2jWLCpucb9URxCKcB', date: '01-01-2024 12:00.00', currency: 'Usdt', amount: 1.0079, status: 'Procesado', transactionId: 'TDpNb7voXx8oDbwyJ2jWLCpucb9URxCKcB'},
-];
+import { TransactionComponent } from '../../../../core/components/transaction/transaction.component';
+import { TransactionService } from '../../../../core/services/transaction.service';
+import { Transaction } from '../../../../core/intefaces/Transaction';
 
 @Component({
   selector: 'app-deposit',
   standalone: true,
-  imports: [CommonModule, MaterialModule, TranslateModule, RouterModule, ReactiveFormsModule, QRCodeModule],
+  imports: [CommonModule, MaterialModule, TranslateModule, RouterModule, ReactiveFormsModule, QRCodeModule, TransactionComponent],
   templateUrl: './deposit.component.html',
-  styleUrl: './deposit.component.css',
-  animations: [
-    trigger('detailExpand', [
-      state('collapsed,void', style({height: '0px', minHeight: '0'})),
-      state('expanded', style({height: '*'})),
-      transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
-    ]),
-  ],
+  styleUrl: './deposit.component.css'
 })
 export class DepositComponent {
   form!:FormGroup;
   copyIcon: string = 'content_copy'
-  displayedColumns: string[] = ['date', 'wallet', 'currency', 'amount', 'status', 'transactionId'];
-  dataSource = ELEMENT_DATA;
-  columnsToDisplayWithExpand = ['expand', ...this.displayedColumns];
-  expandedElement: PeriodicElement | null = null;
-  clickedRows = new Set<PeriodicElement>();
+  transactions: Transaction[] = [];
   userData!: UserData | null 
   constructor(
     private router: Router,
     private clipboard: Clipboard,
     private tokenService: TokenService,
-    private snackbar: SnackbarService
+    private snackbar: SnackbarService,
+    private txService: TransactionService
   ){}
 
   ngOnInit() {
@@ -60,6 +40,11 @@ export class DepositComponent {
       this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
       this.router.navigate([''])
     }
+    this.txService.getTransactions().subscribe({
+      next: (data: Array<Transaction>) => {
+        this.transactions = data.filter(f => f.typeId != 2)
+      }
+    })
     this.form = new FormGroup({
       currency: new FormControl('USDT TetherUs', [Validators.required, Validators.minLength(6)]),
       network: new FormControl('BNB Smart chain (BEP20)', [Validators.required]),

@@ -1,22 +1,7 @@
 <div class="row">
-
   <div class="col-lg-12">
-    <!-- <app-yearly-breakup></app-yearly-breakup>  -->
-    <app-monthly-earnings [wallet]="userData!.wallet"></app-monthly-earnings>
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-lg-4">
-    <!-- <app-recent-transactions></app-recent-transactions> -->
-  </div>
-  <div class="col-lg-8">
-   <!-- <app-product-performance></app-product-performance> -->
-  </div>
-</div>
-
-<div class="row">
-  <div class="col-12">
-    <!-- <app-blog-card></app-blog-card> -->
+    <app-balance [wallet]="userData!.wallet"></app-balance>
+    <h3>Más recientes</h3>
+    <app-transaction [dataSource]="transactions" [all]="allTransactions"/>
   </div>
 </div>

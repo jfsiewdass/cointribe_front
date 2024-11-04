@@ -18,7 +18,7 @@ export const PagesRoutes: Routes = [
     },
   },
   {
-    path: 'investment',
+    path: 'earn',
     component: InvestmentComponent
   },
   {

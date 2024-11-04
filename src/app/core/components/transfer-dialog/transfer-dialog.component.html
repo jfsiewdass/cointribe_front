@@ -1,0 +1,23 @@
+<h2 mat-dialog-title>Transferir</h2>
+<mat-dialog-content>
+    <p>What's your favorite animal?</p>
+    <form [formGroup]="form">
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+            <!-- <mat-label>Spot</mat-label> -->
+            <div matPrefix mat-icon-button aria-label="Clear">De</div>
+            <input matInput formControlName="from" />
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+            <!-- <mat-label>Spot</mat-label> -->
+            <div matPrefix mat-icon-button aria-label="Clear">
+                <mat-icon fontIcon="faDatabase"></mat-icon>
+                Para
+            </div>
+            <input matInput formControlName="to" />
+        </mat-form-field>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">No Thanks</button>
+    <button mat-button cdkFocusInitial>Ok</button>
+</mat-dialog-actions>

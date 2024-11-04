@@ -1,4 +1,4 @@
-import { Component, Input, ViewChild } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, ViewChild } from '@angular/core';
 import {
     ApexChart,
     ChartComponent,
@@ -13,6 +13,10 @@ import {
 } from 'ng-apexcharts';
 import { MaterialModule } from '../../../material.module';
 import { AuthWallet } from '../../intefaces/Auth';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { CommonModule } from '@angular/common';
+import { TransferDialogComponent } from '../transfer-dialog/transfer-dialog.component';
+import { MatDialog } from '@angular/material/dialog';
 
 
 export interface monthlyChart {
@@ -27,19 +31,20 @@ export interface monthlyChart {
 }
 
 @Component({
-    selector: 'app-monthly-earnings',
+    selector: 'app-balance',
     standalone: true,
-    imports: [NgApexchartsModule, MaterialModule],
-    templateUrl: './monthly-earnings.component.html',
+    imports: [NgApexchartsModule, MaterialModule, CommonModule],
+    templateUrl: './balance.component.html',
+    changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AppMonthlyEarningsComponent {
+export class AppBalanceComponent {
     @ViewChild('chart') chart: ChartComponent = Object.create(null);
     @Input() wallet!: AuthWallet | null
-
-
+    isMobile: boolean = false
+    readonly dialog = inject(MatDialog);
     public monthlyChart!: Partial<monthlyChart> | any;
 
-    constructor() {
+    constructor(private breakpointObserver: BreakpointObserver) {
         this.monthlyChart = {
             series: [
                 {
@@ -84,6 +89,20 @@ export class AppMonthlyEarningsComponent {
     }
 
     ngOnInit() {
-        console.log(this.wallet);
+        // console.log(this.wallet);
+        this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+            if (result.matches) {
+              this.isMobile = true
+            } else {
+              this.isMobile = false
+            }
+          });
     }
+    openTransferDialog(): void {
+        const dialogRef = this.dialog.open(TransferDialogComponent);
+    
+        dialogRef.afterClosed().subscribe(result => {
+          
+        });
+      }
 }

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import {
   faDiceOne,
   faDiceTwo,
@@ -7,6 +7,10 @@ import {
   faDiceFour,
   faDiceFive,
   faDiceSix,
+  faQuestion,
+  faCoins,
+  faRotateBack,
+  faArrowsRotate
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { MaterialModule } from '../../../../material.module';
@@ -18,6 +22,10 @@ import {
   Validators,
 } from '@angular/forms';
 import gsap from 'gsap';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
+import { BuyButtons } from './buy/buy-buttons.component';
+
 @Component({
   selector: 'app-dice',
   standalone: true,
@@ -32,6 +40,17 @@ import gsap from 'gsap';
   styleUrl: './dice.component.css',
 })
 export class DiceComponent {
+  faArrowsRotate = faArrowsRotate
+  faRotateBack = faRotateBack
+  faCoins = faCoins
+  isMobile: boolean = false
+  faQuestion = faQuestion
+  faDiceOne = faDiceOne
+  faDiceTwo = faDiceTwo
+  faDiceThree = faDiceThree
+  faDiceFour = faDiceFour
+  faDiceFive = faDiceFive
+  faDiceSix = faDiceSix
   diceFaces = [
     faDiceOne,
     faDiceTwo,
@@ -44,10 +63,33 @@ export class DiceComponent {
   isRolling: boolean = false;
   isEnableToRoll: boolean = true;
   result = '';
-  elected: Array<any> = [{value: 'aPair', enable: true}, {value:'consecutive', enable: true}, {value:'equal', enable: true},  {value:'aPairConsecutive', enable: true}];
+  elected: Array<any> = [
+    {value: 'aPair', enable: true}, 
+    {value:'consecutive', enable: true}, 
+    {value:'equal', enable: true},  
+    {value:'aPairConsecutive', enable: true}
+  ];
   form!: FormGroup;
-
+  bets: Map<string, number>;
+  betHistory: Map<string, number>;
+  constructor(private breakpointObserver: BreakpointObserver) {
+    this.bets = new Map<string, number>([
+      ['pair', 0],
+      ['patrol', 0],
+      ['lookOut', 0],
+      ['tribilin', 0],
+      ['record', 0],
+    ]);
+    this.betHistory = this.bets
+  }
   ngOnInit() {
+    this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
+      if (result.matches) {
+        this.isMobile = true
+      } else {
+        this.isMobile = false
+      }
+    });
     this.form = new FormGroup({
       amount: new FormControl(0, [
         Validators.required,
@@ -167,8 +209,14 @@ export class DiceComponent {
     this.form.patchValue({ amount })
   }
 
-  enable(i: number){
+  enable(i: number, type: string) {
+    
+    if ((this.bets.get(type) || 0) < 50) {
+      this.bets.set(type, (this.bets.get(type) || 0) + 1);
+    }
+    this.betHistory = this.bets
     this.elected[i].enable = !this.elected[i].enable;
+    this.getBet()
   }
 
   rollingDices() {
@@ -190,5 +238,32 @@ export class DiceComponent {
 
   generateRandomDice(){
     return Math.floor(Math.random() * this.diceFaces.length)
+  }
+  private _bottomSheet = inject(MatBottomSheet);
+
+  openBottomSheet(): void {
+    this._bottomSheet.open(BuyButtons).afterDismissed().subscribe(amount => {
+      if (amount) {
+        this.bets.forEach((_, key) => this.bets.set(key, amount / 5));
+        this.betHistory = this.bets
+      }
+      this.getBet()
+    });
+  }
+  getBet(): void {
+    for (const valor of this.bets.values()) {
+      if (valor <= 0) {
+        this.isEnableToRoll = true;
+      }
+    }
+    this.isEnableToRoll = false;
+  }
+  clearBet() {
+    this.bets.forEach((_, key) => this.bets.set(key, 0))
+    this.isEnableToRoll = true
+  }
+  setBet() {
+    this.bets = this.betHistory
+    this.isEnableToRoll = false
   }
 }

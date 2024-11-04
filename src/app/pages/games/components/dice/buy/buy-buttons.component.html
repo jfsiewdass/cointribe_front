@@ -1,0 +1,25 @@
+<mat-nav-list>
+    <a  mat-list-item (click)="selectAmount($event, 5)" class="text-center">
+        <span matListItemTitle >
+            <fa-icon [icon]="faCoins" style="font-size: 25;"></fa-icon> $5
+        </span>
+    </a>
+
+    <a  mat-list-item (click)="selectAmount($event, 10)" class="text-center">
+        <span matListItemTitle>
+            <fa-icon [icon]="faCoins" style="font-size: 25;"></fa-icon> $10
+        </span>
+    </a>
+
+    <a  mat-list-item (click)="selectAmount($event, 20)" class="text-center">
+        <span matListItemTitle>
+            <fa-icon [icon]="faCoins" style="font-size: 25;"></fa-icon> $20
+        </span>
+    </a>
+
+    <a  mat-list-item (click)="selectAmount($event, 50)" class="text-center">
+        <span matListItemTitle>
+            <fa-icon [icon]="faCoins" style="font-size: 25;"></fa-icon> $50
+        </span>
+    </a>
+</mat-nav-list>

@@ -1,0 +1,7 @@
+.dice-icon {
+    font-size: 150px;
+    transition: transform 1.5s ease-in-out;
+}
+.example-card {
+    text-align: center;
+}
