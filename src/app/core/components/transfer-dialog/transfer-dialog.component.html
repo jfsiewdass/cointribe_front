@@ -1,23 +1,48 @@
 <h2 mat-dialog-title>Transferir</h2>
-<mat-dialog-content>
-    <p>What's your favorite animal?</p>
-    <form [formGroup]="form">
+<form [formGroup]="form" class="m-t-10" (ngSubmit)="transfer()">
+<mat-dialog-content class="m-2">
         <mat-form-field appearance="outline" class="w-100" color="primary">
-            <!-- <mat-label>Spot</mat-label> -->
-            <div matPrefix mat-icon-button aria-label="Clear">De</div>
-            <input matInput formControlName="from" />
+            <mat-label>De</mat-label>
+            <mat-select formControlName="from" (ngModelChange)="changeWallet($event, 'from')">
+                @for(wallet of wallets; track wallet.id) {
+                    <mat-option [value]="wallet.id" [disabled]="form.get('to')?.value == wallet.id">{{ wallet.description }}</mat-option>
+                }
+            </mat-select>
+        </mat-form-field>
+        <div class="d-flex justify-content-end align-items-center m-t--20">
+            <button mat-icon-button type="button" (click)="swapWallet()">
+                <mat-icon fontIcon="swap_vert" style="font-size: 28px;"></mat-icon>
+            </button>
+        </div>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+            <mat-label>Para</mat-label>
+            <mat-select formControlName="to" (ngModelChange)="changeWallet($event, 'to')">
+                @for(wallet of wallets; track wallet.id) {
+                    <mat-option [value]="wallet.id" [disabled]="form.get('from')?.value == wallet.id">{{ wallet.description }}</mat-option>
+                }
+            </mat-select>
         </mat-form-field>
         <mat-form-field appearance="outline" class="w-100" color="primary">
-            <!-- <mat-label>Spot</mat-label> -->
-            <div matPrefix mat-icon-button aria-label="Clear">
-                <mat-icon fontIcon="faDatabase"></mat-icon>
-                Para
+            <mat-label>Moneda</mat-label>
+            <input matInput type="text" formControlName="coin" readonly>
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="w-100" color="primary">
+            <mat-label>Importe</mat-label>
+            <input matInput type="text" formControlName="amount">
+            <div class="hint-error-container">
+                <mat-hint>
+                    <strong>{{ walletDetail }}</strong>
+                    <button mat-button type="button" (click)="setMaxAmount(form.get('from')?.value)">Max</button>
+                </mat-hint>
+                
             </div>
-            <input matInput formControlName="to" />
+            <mat-error *ngIf="form.get('amount')?.hasError('required')"> Campo requerido </mat-error>
+            <mat-error *ngIf="form.get('amount')?.hasError('greaterThanZero')"> Debe ser mayor a cero </mat-error>
         </mat-form-field>
-    </form>
-</mat-dialog-content>
-<mat-dialog-actions>
-    <button mat-button (click)="onNoClick()">No Thanks</button>
-    <button mat-button cdkFocusInitial>Ok</button>
-</mat-dialog-actions>
+    </mat-dialog-content>
+    <mat-dialog-actions class="d-flex justify-content-end">
+        <button mat-raised-button type="button" class="m-b-20 m-r-20" (click)="dialogRef.close()">Cerrar</button>
+        <button mat-raised-button type="submit" color="primary" class="m-b-20 m-r-20" cdkFocusInitial>Transferir</button>
+        <!-- <button mat-button cdkFocusInitial>Ok</button> -->
+    </mat-dialog-actions>
+</form>

@@ -6,7 +6,8 @@ import { TranslateModule } from '@ngx-translate/core';
 import { ScreenService } from '../../services/screen.service';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Transaction } from '../../intefaces/Transaction';
-
+import dayjs from 'dayjs'
+import { TransactionIconMap } from '../../mapData';
 @Component({
   selector: 'app-transaction',
   standalone: true,
@@ -22,28 +23,40 @@ import { Transaction } from '../../intefaces/Transaction';
   ],
 })
 export class TransactionComponent {
-  displayedColumns: string[] = ['created_at', 'currency', 'amount', 'status', 'confirmations',  'transactionId'];
+  displayedColumns: string[] = ['icon', 'type', 'status', 'amount'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
-  @Input() dataSource: Transaction[] = [];
+  @Input() dataSource: Array<Transaction> = [];
   @Input() all: boolean = false;
-  columnsToDisplayWithExpand = [...this.displayedColumns, 'expand'];
   expandedElement!: Transaction | null;
   clickedRows = new Set<Transaction>();
-  constructor(private breakpointObserver: BreakpointObserver) {
-    
-  }
+  isMobile: boolean = false
+  transactionIconMap = TransactionIconMap
+  constructor(private breakpointObserver: BreakpointObserver) {}
   ngOnInit() {
-    if (this.all) 
-      this.displayedColumns.unshift('type')
-
     this.breakpointObserver.observe([
       Breakpoints.Handset
     ]).subscribe(result => {
       if (result.matches) {
-        // console.log('mobile');
+        this.isMobile = true
+        this.displayedColumns = ['icon', 'type', 'amount']
       } else {
-        // console.log('pc');
+        this.displayedColumns = ['icon', 'type', 'status', 'amount'];
+        this.isMobile = false
       }
     });
+  }
+
+  formatDate(date: string) {
+    return new Date(date).toLocaleString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' });
+  }
+
+  formatHash(hash: string): string {
+    if (hash.length < (this.isMobile ? 14 : 34)) {
+      return hash;
+    }
+    const first = hash.substring(0, (this.isMobile ? 10 : 30));
+    const last = hash.substring(hash.length - 4);
+  
+    return `${first}...${last}`;
   }
 }

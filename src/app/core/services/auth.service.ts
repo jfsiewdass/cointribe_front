@@ -18,22 +18,18 @@ export class AuthService {
   private router = inject(Router)
 
   login(body:any):Observable<UserData>{
-    // const params = new HttpParams();
-    // params.append('email', body.email)
-    // params.append('password', body.password)
-
-    return this.httpClient.post<GenericResponse<UserData>>(`${this.env.apiUrl}${'user/login'}`,body)
+    return this.httpClient.post<GenericResponse<UserData>>(`${this.env.apiUrl}${'user/login'}`, body)
     .pipe(
       switchMap(response =>
-        response.statusCode === 200
+        response.statusCode == 200
           ? of(response.data)
-          : throwError(() => new Error(response.message))
+          : throwError(() => response)
       )
     );
   }
 
   logout():Observable<LogoutData>{
-    return this.httpClient.delete<GenericResponse<LogoutData>>(`${this.env.apiUrl}${'user/logout'}`)
+    return this.httpClient.delete<GenericResponse<LogoutData>>(`${this.env.apiUrl}user/logout`)
     .pipe(
       switchMap(response =>
         response.statusCode === 200

@@ -3,12 +3,11 @@ import { MaterialModule } from '../../../../material.module';
 import { CommonModule } from '@angular/common';
 import { CounterService } from '../../services/counter.service';
 import { TranslateModule } from '@ngx-translate/core';
-// import { AppSalesOverviewComponent } from '../../components/sales-overview/sales-overview.component';
-// import { AppYearlyBreakupComponent } from '../../components/yearly-breakup/yearly-breakup.component';
-// import { AppMonthlyEarningsComponent } from '../../components/monthly-earnings/monthly-earnings.component';
-// import { AppRecentTransactionsComponent } from '../../components/recent-transactions/recent-transactions.component';
-// import { AppProductPerformanceComponent } from '../../components/product-performance/product-performance.component';
-// import { AppBlogCardsComponent } from '../../components/blog-card/blog-card.component';
+import { UserData } from '../../../../core/intefaces/Auth';
+import { TokenService } from '../../../../core/services/token.service';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
+import { Router } from '@angular/router';
+import { AppBalanceComponent } from '../../../../core/components/balance/balance.component';
 
 
 @Component({
@@ -17,19 +16,15 @@ import { TranslateModule } from '@ngx-translate/core';
   imports: [
     MaterialModule,
     CommonModule,
-    TranslateModule
-    // AppSalesOverviewComponent,
-    // AppYearlyBreakupComponent,
-    // AppMonthlyEarningsComponent,
-    // AppRecentTransactionsComponent,
-    // AppProductPerformanceComponent,
-    // AppBlogCardsComponent
+    TranslateModule,
+    AppBalanceComponent
   ],
   templateUrl: './investment.component.html',
   encapsulation: ViewEncapsulation.None,
   styleUrls: ['./investment.component.css'],
 })
 export class InvestmentComponent { 
+  userData!: UserData | null;
   percent: number = 2.5
   perHour: number = 0.00
   isEarning: boolean = false
@@ -38,8 +33,18 @@ export class InvestmentComponent {
   hasClaim:boolean = true
   balance: number = 0
   startDateStorage: string | null = null
+  private tokenService = inject(TokenService)
+  private snackbar = inject(SnackbarService)
+  private router = inject(Router)
   ngOnInit() {
-    this.balance = localStorage.getItem('balance') ? parseFloat(localStorage.getItem('balance')!.toString()) : 0.00
+    this.userData = this.tokenService.getUserData();
+    console.log(this.userData);
+    
+    if (!this.userData?.wallet) {
+      this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
+      this.router.navigate(['/'])
+    }
+    this.balance = this.userData?.wallet.earn ? parseFloat(this.userData?.wallet.earn!.toString()) : 0.00
     // console.log(this.perHour);
     this.setProfitPerHour()
     this.startDateStorage = localStorage.getItem('startDate')

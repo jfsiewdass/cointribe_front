@@ -1,0 +1,13 @@
+<div class="snack-container-message">
+    <div class="snack-container-message">
+      <div>
+        <fa-icon [icon]="getIcon.icon" class="m-r-10"/>
+      </div>
+      <div>
+        <span> {{ data.message}}</span>
+      </div>
+    </div>
+    <div class="snack-container-icon">
+       <fa-icon [icon]="faClose" (click)="closeSnackbar()"/>
+    </div>
+  </div>

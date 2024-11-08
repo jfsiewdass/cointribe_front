@@ -1,0 +1,40 @@
+.snack-container-message {
+    display: flex; /* Make the container a flexbox */
+    align-items: center; /* Align content vertically */
+    justify-content: space-between;
+    padding: 8px; /* Add some padding */
+    border-radius: 4px; /* Add rounded corners */
+    color: #fff; /* Set default text color */
+  }
+  
+  .snack-container-content {
+    display: flex;
+    flex-grow: 1; /* Allow message to grow and fill space */
+    margin-right: 16px; /* Add margin between message and close icon */
+  }
+  
+  .snack-icon,
+  .snack-close {
+    font-size: 18px; /* Adjust icon size */
+  }
+  
+  .snack-close {
+    cursor: pointer; /* Set cursor to pointer on hover */
+  }
+  
+  /* Color styles based on snack type */
+  .box-success {
+    background-color: #4CAF50;
+  }
+  
+  .box-error {
+    background-color: #F44336;
+  }
+  
+  .box-warn {
+    background-color: #FF9800;
+  }
+  
+  .box-info {
+    background-color: #00bcd4;
+  }

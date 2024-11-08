@@ -9,6 +9,8 @@ export interface UserData{
 export interface AuthWallet {
     address: string,
     balance: number,
+    earn: number,
+    game: number,
     coin: string
 }
 export interface RefreshTokenData{
@@ -29,6 +31,9 @@ export interface UserData{
     Surname:string,
     LastName:string,
     Rol:number
+    balance: number,
+    earn: number,
+    game: number
 }
 
 export interface DecodedToken{

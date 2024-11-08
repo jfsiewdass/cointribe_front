@@ -4,17 +4,68 @@ html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
-.message-danger > div {
-    background: #d9534f !important;
+.message-error > div {
+    background: #F44336 !important;
 }
-.message-danger > div > div > div > div > .mat-mdc-simple-snack-bar > div > button {
+.message-error > div > div > div > div > .mat-mdc-simple-snack-bar > div > button {
     color: white !important;
 }
 
 .message-success > div {
-    background: #5cb85c
+    background: #4CAF50
     !important;
 }
 .message-success > div > div > div > div > .mat-mdc-simple-snack-bar > div > button {
     color: white !important;
+}
+
+.message-info > div {
+  background: #00bcd4
+  !important;
+}
+.message-info > div > div > div > div > .mat-mdc-simple-snack-bar > div > button {
+  color: white !important;
+}
+
+.message-warn > div {
+  background: #FF9800
+  !important;
+}
+.message-warn > div > div > div > div > .mat-mdc-simple-snack-bar > div > button {
+  color: white !important;
+}
+
+.hint-error-container {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  
+  .hint-left {
+    margin-right: 10px; /* Ajusta el margen según sea necesario */
+  }
+  
+  .hint-right {
+    margin-left: 10px;
+  }
+
+  
+.mat-chip.success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.mat-chip.primary {
+  background-color: blue;
+  color: white;
+}
+
+.mat-chip.danger {
+  background-color: #F44336;
+  color: white;
+}
+
+.mat-chip.info {
+  background-color: #00bcd4;
+  color: black;
 }

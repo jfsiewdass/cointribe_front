@@ -7,7 +7,7 @@ import { UserData } from '../../core/intefaces/Auth';
 import { Router } from '@angular/router';
 import { TokenService } from '../../core/services/token.service';
 import { SnackbarService } from '../../core/services/snackbar.service';
-import { TransactionService } from '../../core/services/transaction.service';
+import { WalletService } from '../../core/services/transaction.service';
 import {  TransactionComponent } from '../../core/components/transaction/transaction.component';
 import { Transaction } from '../../core/intefaces/Transaction';
 
@@ -35,7 +35,7 @@ export class DashboardComponent {
     private router: Router,
     private tokenService: TokenService,
     private snackbar: SnackbarService,
-    private txService: TransactionService
+    private txService: WalletService
   ){}
   
   ngOnInit() {
@@ -46,6 +46,10 @@ export class DashboardComponent {
     this.txService.getTransactions().subscribe({
       next: (data: Array<Transaction>) => {
         this.transactions = data
+      },
+      error: (error) => {
+        console.log(error);
+        this.snackbar.openSnackBar(error, 'error')
       }
     })
     localStorage.setItem('balance', this.userData?.wallet ? this.userData?.wallet?.balance?.toString(): '')

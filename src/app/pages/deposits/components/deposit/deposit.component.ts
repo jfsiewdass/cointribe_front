@@ -11,7 +11,7 @@ import { TokenService } from '../../../../core/services/token.service';
 import { UserData } from '../../../../core/intefaces/Auth';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { TransactionComponent } from '../../../../core/components/transaction/transaction.component';
-import { TransactionService } from '../../../../core/services/transaction.service';
+import { WalletService } from '../../../../core/services/transaction.service';
 import { Transaction } from '../../../../core/intefaces/Transaction';
 
 @Component({
@@ -31,7 +31,7 @@ export class DepositComponent {
     private clipboard: Clipboard,
     private tokenService: TokenService,
     private snackbar: SnackbarService,
-    private txService: TransactionService
+    private txService: WalletService
   ){}
 
   ngOnInit() {

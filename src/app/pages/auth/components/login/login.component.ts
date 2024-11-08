@@ -58,22 +58,22 @@ export class AppLoginComponent {
   }
 
   submit() {
+    if (this.form.invalid) {
+      return;
+    }
     this.authService.login(this.form.value).subscribe({
       next: (resp: any) => {
         this.tokenService.setAuthToken(resp.token);
         this.tokenService.setRefreshToken(resp.refreshToken)
-        console.log(resp);
         
         this.tokenService.setUserData({
           email: resp.email,
           wallet: resp.wallet
         });
       this._router.navigate(['/']);
-      },error: ({ error }) => {
-        console.log(error);
-        this.snackbarService.error(error);
-			},
-			complete: () => { }
+      },
+      error: (error: any) => this.snackbarService.openSnackBar(error, 'error'),
+			// complete: () => {}
     })
   }
   

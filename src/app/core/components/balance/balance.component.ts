@@ -17,6 +17,8 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { CommonModule } from '@angular/common';
 import { TransferDialogComponent } from '../transfer-dialog/transfer-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { RouterModule } from '@angular/router';
+import { walletsTypeEnum } from '../../enums/wallet-type.enum';
 
 
 export interface monthlyChart {
@@ -33,16 +35,25 @@ export interface monthlyChart {
 @Component({
     selector: 'app-balance',
     standalone: true,
-    imports: [NgApexchartsModule, MaterialModule, CommonModule],
+    imports: [NgApexchartsModule, MaterialModule, CommonModule, RouterModule],
     templateUrl: './balance.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppBalanceComponent {
+    walletsTypeEnum = walletsTypeEnum
     @ViewChild('chart') chart: ChartComponent = Object.create(null);
     @Input() wallet!: AuthWallet | null
+    @Input() isMainPage: boolean = true
+    @Input() walletType:  walletsTypeEnum = walletsTypeEnum.SPOT
     isMobile: boolean = false
     readonly dialog = inject(MatDialog);
     public monthlyChart!: Partial<monthlyChart> | any;
+    walletDescription: { [key in walletsTypeEnum]: string } = {
+        [walletsTypeEnum.SPOT]: 'Spot balance',
+        [walletsTypeEnum.EARN]: 'Earn balance',
+        [walletsTypeEnum.GAME]: 'Game balance'
+    };
+    
 
     constructor(private breakpointObserver: BreakpointObserver) {
         this.monthlyChart = {
@@ -89,20 +100,24 @@ export class AppBalanceComponent {
     }
 
     ngOnInit() {
-        // console.log(this.wallet);
+        // console.log(this.walletType.toString());
         this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
             if (result.matches) {
-              this.isMobile = true
+                this.isMobile = true
             } else {
-              this.isMobile = false
+                this.isMobile = false
             }
-          });
+        });
     }
     openTransferDialog(): void {
-        const dialogRef = this.dialog.open(TransferDialogComponent);
-    
-        dialogRef.afterClosed().subscribe(result => {
-          
+        const dialogRef = this.dialog.open(TransferDialogComponent, {
+            data: {
+                wallet: this.wallet
+            }
         });
-      }
+
+        dialogRef.afterClosed().subscribe(result => {
+
+        });
+    }
 }

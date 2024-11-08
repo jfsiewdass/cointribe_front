@@ -25,6 +25,12 @@ import gsap from 'gsap';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BuyButtons } from './buy/buy-buttons.component';
+import { UserData } from '../../../../core/intefaces/Auth';
+import { TokenService } from '../../../../core/services/token.service';
+import { SnackbarService } from '../../../../core/services/snackbar.service';
+import { Router } from '@angular/router';
+import { AppBalanceComponent } from '../../../../core/components/balance/balance.component';
+import { BehaviorSubject, interval, Observable, Subject, takeWhile } from 'rxjs';
 
 @Component({
   selector: 'app-dice',
@@ -35,11 +41,13 @@ import { BuyButtons } from './buy/buy-buttons.component';
     MaterialModule,
     TranslateModule,
     ReactiveFormsModule,
+    AppBalanceComponent
   ],
   templateUrl: './dice.component.html',
   styleUrl: './dice.component.css',
 })
 export class DiceComponent {
+  userData!: UserData | null;
   faArrowsRotate = faArrowsRotate
   faRotateBack = faRotateBack
   faCoins = faCoins
@@ -64,7 +72,7 @@ export class DiceComponent {
   isEnableToRoll: boolean = true;
   result = '';
   elected: Array<any> = [
-    {value: 'aPair', enable: true}, 
+    {value: 'pair', enable: true}, 
     {value:'consecutive', enable: true}, 
     {value:'equal', enable: true},  
     {value:'aPairConsecutive', enable: true}
@@ -82,7 +90,21 @@ export class DiceComponent {
     ]);
     this.betHistory = this.bets
   }
+  private tokenService = inject(TokenService)
+  private snackbar = inject(SnackbarService)
+  private router = inject(Router)
+  balance: BehaviorSubject<number> = new BehaviorSubject<number>(0);
+  private subscription: any;
+  saldoInicial = 100; // Valor inicial del saldo
+  tiempoIntervalo = 1000;
   ngOnInit() {
+    this.userData = this.tokenService.getUserData();
+    
+    if (!this.userData?.wallet) {
+      this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
+      this.router.navigate(['/'])
+    }
+    this.balance.next(this.userData?.wallet.game ? parseFloat(this.userData?.wallet.game!.toString()) : 0.00)
     this.breakpointObserver.observe([Breakpoints.Handset]).subscribe(result => {
       if (result.matches) {
         this.isMobile = true
@@ -97,6 +119,9 @@ export class DiceComponent {
         Validators.max(9999)
       ]),
     });
+  }
+  ngOnDestroy() {
+    this.subscription?.unsubscribe();
   }
   rollDice() {
     if (this.isRolling) return
@@ -137,7 +162,7 @@ export class DiceComponent {
               randomThirdDice,
             ])) ||
            // A PAIR
-           (this.elected.find((e) => e.value == 'aPair' && e.enable == true) &&
+           (this.elected.find((e) => e.value == 'pair' && e.enable == true) &&
            this.pair([
              randomFirstDice,
              randomSecondDice,
@@ -150,8 +175,14 @@ export class DiceComponent {
         }
         this.isRolling = false
         this.isEnableToRoll = true
+        if (this.result == 'lose') {
+          this.setBalance(this.balance.getValue() - this.getAmmountBet(), false)
+          this.clearBet()
+          
+        }
       }, 1500);
     }, 100);
+    this.subscription?.unsubscribe();
   }
   
   activeRollBtn() {
@@ -161,7 +192,7 @@ export class DiceComponent {
 
   areConsecutives(numbers: Array<number>) {
     numbers.sort((a, b) => a - b);
-    return numbers[1] - numbers[0] === 1 && numbers[2] - numbers[1] === 1;
+    return this.bets.get('patrol') == 0 ? false : numbers[1] - numbers[0] === 1 && numbers[2] - numbers[1] === 1;
   }
 
   twoEqualAndOneConsecutive(numbers: Array<number>) {
@@ -174,7 +205,7 @@ export class DiceComponent {
         return false;
       }
     }
-    return iguales === 1;
+    return this.bets.get('lookOut') == 0 ? false : iguales === 1;
   }
   pair(numbers: Array<number>) {
     const counts: any = {};
@@ -199,7 +230,16 @@ export class DiceComponent {
       }
     }
     
-    return foundPair;
+    // if (this.bets.get('pair') == 0  || !foundPair) {
+    //   const newBalance = this.balance.getValue() - this.getAmmountBet()
+    //   console.log(newBalance);
+    //   this.setBalance(newBalance, false)
+    //   return false
+    // }
+
+    
+    return this.bets.get('pair') == 0 ? false : foundPair
+    
   }
   clean() {
     this.form.reset();
@@ -210,7 +250,6 @@ export class DiceComponent {
   }
 
   enable(i: number, type: string) {
-    
     if ((this.bets.get(type) || 0) < 50) {
       this.bets.set(type, (this.bets.get(type) || 0) + 1);
     }
@@ -242,7 +281,9 @@ export class DiceComponent {
   private _bottomSheet = inject(MatBottomSheet);
 
   openBottomSheet(): void {
-    this._bottomSheet.open(BuyButtons).afterDismissed().subscribe(amount => {
+    this._bottomSheet.open(BuyButtons, {data: {
+      balance: this.balance
+    }}).afterDismissed().subscribe(amount => {
       if (amount) {
         this.bets.forEach((_, key) => this.bets.set(key, amount / 5));
         this.betHistory = this.bets
@@ -259,11 +300,45 @@ export class DiceComponent {
     this.isEnableToRoll = false;
   }
   clearBet() {
-    this.bets.forEach((_, key) => this.bets.set(key, 0))
+    this.bets = new Map<string, number>([
+      ['pair', 0],
+      ['patrol', 0],
+      ['lookOut', 0],
+      ['tribilin', 0],
+      ['record', 0],
+    ]);
     this.isEnableToRoll = true
   }
   setBet() {
+    // console.log(this.betHistory);
     this.bets = this.betHistory
     this.isEnableToRoll = false
+  }
+
+  setBalance(target: number, win: boolean = false) {
+    this.subscription = interval(100)
+      .pipe(
+        takeWhile(() => !win ? this.balance.getValue() > target : this.balance.getValue() < target)
+      )
+      .subscribe(() => {
+        !win ? this.decrementBalance() : this.incrementBalance()
+      });
+    //this.subscription.unsubscribe();
+  }
+  incrementBalance() {
+    const currentBalance = this.balance.getValue();
+    const newBalance = currentBalance - 1;
+    this.balance.next(newBalance);
+  }
+  decrementBalance() {
+    const currentBalance = this.balance.getValue();
+    const newBalance = currentBalance - 1;
+    this.balance.next(newBalance);
+  }
+  getAmmountBet() {
+    let amount = 0
+    for (const value of this.bets.values()) { amount += value }
+
+    return amount
   }
 }
