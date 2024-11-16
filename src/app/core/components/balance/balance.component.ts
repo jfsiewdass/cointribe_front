@@ -19,6 +19,7 @@ import { TransferDialogComponent } from '../transfer-dialog/transfer-dialog.comp
 import { MatDialog } from '@angular/material/dialog';
 import { RouterModule } from '@angular/router';
 import { walletsTypeEnum } from '../../enums/wallet-type.enum';
+import { TranslateModule } from '@ngx-translate/core';
 
 
 export interface monthlyChart {
@@ -35,7 +36,7 @@ export interface monthlyChart {
 @Component({
     selector: 'app-balance',
     standalone: true,
-    imports: [NgApexchartsModule, MaterialModule, CommonModule, RouterModule],
+    imports: [NgApexchartsModule, MaterialModule, CommonModule, RouterModule, TranslateModule],
     templateUrl: './balance.component.html',
     changeDetection: ChangeDetectionStrategy.OnPush,
 })

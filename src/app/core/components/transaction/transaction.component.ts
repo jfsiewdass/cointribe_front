@@ -1,6 +1,6 @@
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input } from '@angular/core';
+import { Component, EventEmitter, inject, Input, Output } from '@angular/core';
 import { MaterialModule } from '../../../material.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { ScreenService } from '../../services/screen.service';
@@ -31,6 +31,8 @@ export class TransactionComponent {
   clickedRows = new Set<Transaction>();
   isMobile: boolean = false
   transactionIconMap = TransactionIconMap
+  @Output() moreTransactions = new EventEmitter<void>();
+  
   constructor(private breakpointObserver: BreakpointObserver) {}
   ngOnInit() {
     this.breakpointObserver.observe([
@@ -59,4 +61,6 @@ export class TransactionComponent {
   
     return `${first}...${last}`;
   }
+
+  
 }

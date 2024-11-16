@@ -9,7 +9,7 @@
         "home": "HOME",
         "dashboard": "Dashboard",
         "earn": "Earn",
-        "games":"games"
+        "games":"Games"
     },
     "login": {
         "google": "Sign in with Google",
@@ -28,6 +28,7 @@
         "name": "Name",
         "email": "Email address",
         "password": "Password",
+        "confirm-password": "Confirm password",
         "signup": "Sign Up",
         "forgot_password": "Forgot Password?",
         "has_an_account": "Already have an Account?",
@@ -38,10 +39,17 @@
         "send": "Send",
         "back": "Back"
     },
+    "dashboard": {
+        "balance": "Spot balance",
+        "withdraw": "Withdraw",
+        "deposit": "Deposit",
+        "transfer": "Transfer",
+        "recents": "More recents"
+    },
     "investment":{
         "title": "Subscribe now",
         "sub-title": "You can easily subscribe to the locked term service. Rewards distribution, subscription and redemption processes are now more streamlined and easier to use",
-        "balance": "Actual balance",
+        "balance": "Earn balance",
         "storage": "Storage",
         "to-fill": "to fill",
         "USDT-hour": "USDT/hour",
@@ -49,6 +57,7 @@
         "claim-btn": "Claim"
     },
     "deposit":{
+        "title": "Deposit",
         "currency": "Currency",
         "network": "Nerwork",
         "wallet": "Wallet address",
@@ -56,10 +65,12 @@
         "amount": "Amount",
         "status": "Status",
         "transactionId": "Transaction ID",
-         "confirmations": "Confirmations"
+        "confirmations": "Confirmations",
+        "recents": "More recents"
     },
     "games":{
         "dice":{
+            "balance": "Game balance",
             "title": "Dice Fall",
             "sub-title": "Do you feel lucky? Test your luck in our exciting game called Dice Fall!",
             "roll": "Roll Dice",
@@ -76,6 +87,11 @@
                 "win": "You win",
                 "lose": "You lose"
             }
+        },
+        "WITHDRAW": "Retiro",
+        "DEPOSIT": "Depósito",
+        "dice-game": {
+            "title":"Dice Fall Game"
         }
     }
 }

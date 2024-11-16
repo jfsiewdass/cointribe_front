@@ -69,3 +69,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #00bcd4;
   color: black;
 }
+
+.mat-mdc-form-field-required-marker, .mdc-floating-label--required {
+  display: none;
+}

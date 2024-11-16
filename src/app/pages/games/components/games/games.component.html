@@ -1,14 +1,13 @@
 <div class="row">
   <div class="col-md-4">
-    <a routerLink="/admin/dice" style="text-decoration: none;">
-      <mat-card class="example-card" appearance="outlined">
+    <a routerLink="/admin/dice" class="game-btn">
+      <mat-card class="game-card" appearance="raised">
         <mat-card-header>
-          <div mat-card-avatar class="example-header-image"></div>
-          <mat-card-title>Dice Fall Game</mat-card-title>
+          <!-- <div mat-card-avatar class="example-header-image"></div> -->
+          <div class="w-100 game-card-title">{{ 'games.dice-game.title' | translate }}</div>
           <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
         </mat-card-header>
-        <fa-icon [icon]="faDice" class="dice-icon m-r-30"></fa-icon>
-        <br><br>
+        <ng-lottie [options]="options" (animationCreated)="animationCreated($event)" class="lottie-icon"/>
       </mat-card>
     </a>
 

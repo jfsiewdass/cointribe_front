@@ -1,6 +1,6 @@
 <mat-card class="cardWithShadow">
     <mat-card-header class="row">
-        <mat-card-title class="m-l-15">{{ walletDescription[walletType] }}</mat-card-title>
+        <mat-card-title class="m-l-15">{{ 'dashboard.balance' | translate }}</mat-card-title>
         
     </mat-card-header>
     <mat-card-content class="m-b-32">
@@ -22,17 +22,15 @@
             <div class="mat-body-1 f-w-600 m-l-12">+9%</div>
             <div class="mat-body-1 m-l-4">last year</div>
         </div> -->
-        <div class="text-right" *ngIf="isMainPage">
+        <div class="text-right m-t-10" *ngIf="isMainPage">
             <button mat-flat-button color="primary" class="m-2" routerLink="/admin/deposit">
-                <!-- <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="paid"></mat-icon> -->
-                Depositar
-                <!-- <i-tabler name="currency-dollar" class="text-white d-flex"></i-tabler> -->
+                {{ 'dashboard.deposit' | translate }}
             </button>
             <button mat-flat-button color="primary" class="m-2">
-                Retirar
+                {{ 'dashboard.withdraw' | translate }}
             </button>
             <button mat-flat-button color="primary" class="m-2" (click)="openTransferDialog()">
-                Transferir
+                {{ 'dashboard.transfer' | translate }}
             </button>
         </div>
     </mat-card-content>

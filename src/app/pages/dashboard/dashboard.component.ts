@@ -10,6 +10,7 @@ import { SnackbarService } from '../../core/services/snackbar.service';
 import { WalletService } from '../../core/services/transaction.service';
 import {  TransactionComponent } from '../../core/components/transaction/transaction.component';
 import { Transaction } from '../../core/intefaces/Transaction';
+import { TranslateModule } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-starter',
@@ -17,9 +18,10 @@ import { Transaction } from '../../core/intefaces/Transaction';
   imports: [
     MaterialModule,
     AppBalanceComponent,
-    AppYearlyBreakupComponent,
-    AppSalesOverviewComponent,
-    TransactionComponent
+    // AppYearlyBreakupComponent,
+    // AppSalesOverviewComponent,
+    TransactionComponent,
+    TranslateModule
     // AppRecentTransactionsComponent,
     // AppProductPerformanceComponent,
     // AppBlogCardsComponent
@@ -31,6 +33,7 @@ export class DashboardComponent {
   userData!: UserData | null;
   transactions: Transaction[] = [];
   allTransactions: boolean = true
+  page: number = 1
   constructor(
     private router: Router,
     private tokenService: TokenService,
@@ -43,15 +46,14 @@ export class DashboardComponent {
     if (!this.userData?.wallet) {
       this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
     }
-    this.txService.getTransactions().subscribe({
-      next: (data: Array<Transaction>) => {
-        this.transactions = data
-      },
-      error: (error) => {
-        console.log(error);
-        this.snackbar.openSnackBar(error, 'error')
-      }
-    })
+    this.txService.transactions$.subscribe(transactions => {
+      this.transactions = transactions;
+    });
     localStorage.setItem('balance', this.userData?.wallet ? this.userData?.wallet?.balance?.toString(): '')
+  }
+  more() {
+    console.log('more');
+    this.page++
+    this.txService.loadTransactions(this.page);
   }
 }

@@ -72,7 +72,11 @@
               "buildTarget": "cointribe-front:build:production"
             },
             "development": {
-              "buildTarget": "cointribe-front:build:development"
+              "buildTarget": "cointribe-front:build:development",
+              "proxyConfig": "proxy.conf.json"
+            },
+            "options": {
+              "proxyConfig": "proxy.conf.json"
             }
           },
           "defaultConfiguration": "development"

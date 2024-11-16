@@ -17,13 +17,14 @@
 
           <div class="row m-t-24 custom-row">
             <div class="col-12 text-center">
-              <!-- <button mat-stroked-button class="w-100" (click)="loginWithGoogle()">
+              <!-- (click)="triggerGoogleSignIn()" id="googleLoginButton" -->
+              <button mat-stroked-button class="w-100" (click)="windowOpen()">
                 <div class="d-flex align-items-center">
                   <img src="/assets/images/svgs/google-icon.svg" alt="google" width="16" class="m-r-8" />
                   {{ 'login.google' | translate }}
                 </div>
-              </button> -->
-              <asl-google-signin-button 
+              </button>
+              <!-- <asl-google-signin-button 
                   type='standard' 
                   size='large' 
                   text="signin_with"
@@ -33,7 +34,7 @@
                   text="signup_with"
                   class="custom-google-button w-100 text-center">
               </asl-google-signin-button>
-            
+             -->
             </div>
            
           </div>
@@ -42,22 +43,22 @@
 
           <form [formGroup]="form" (ngSubmit)="submit()">
 
-            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
+            <mat-form-field appearance="outline" class="w-100 m-b-10" color="primary">
               <mat-label>{{ 'login.username' | translate }}</mat-label>
               <input matInput formControlName="email"/>
               <mat-error *ngIf="form.get('email')?.hasError('required')"> Campo requerido </mat-error>
               <mat-error *ngIf="form.get('email')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
             </mat-form-field>
             <!-- password -->
-            <mat-form-field appearance="outline" class="w-100  m-b-12" color="primary">
+            <mat-form-field appearance="outline" class="w-100  m-b-10" color="primary">
               <mat-label>{{ 'login.password' | translate }}</mat-label>
               <input matInput type="password" formControlName="password"/>
               <mat-error *ngIf="form.get('password')?.hasError('required')"> Campo requerido </mat-error>
               <mat-error *ngIf="form.get('password')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
             </mat-form-field>
 
-            <div class="d-flex align-items-center m-b-12">
-              <mat-checkbox color="primary">{{ 'login.remember_this_device' | translate }}</mat-checkbox>
+            <div class="d-flex align-items-center m-b-10">
+              <!-- <mat-checkbox color="primary">{{ 'login.remember_this_device' | translate }}</mat-checkbox> -->
               <a [routerLink]="['/auth/forgot-password']" class="text-primary f-w-600 text-decoration-none m-l-auto f-s-14">{{ 'login.forgot_password' | translate }}</a>
             </div>
             <button type="submit" mat-flat-button color="primary" class="w-100">

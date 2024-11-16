@@ -40,11 +40,9 @@ export class DepositComponent {
       this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
       this.router.navigate([''])
     }
-    this.txService.getTransactions().subscribe({
-      next: (data: Array<Transaction>) => {
-        this.transactions = data.filter(f => f.typeId != 2)
-      }
-    })
+    this.txService.transactions$.subscribe(transactions => {
+      this.transactions = transactions;
+    });
     this.form = new FormGroup({
       currency: new FormControl('USDT TetherUs', [Validators.required, Validators.minLength(6)]),
       network: new FormControl('BNB Smart chain (BEP20)', [Validators.required]),

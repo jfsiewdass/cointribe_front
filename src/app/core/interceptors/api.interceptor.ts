@@ -21,7 +21,9 @@ export function apiInterceptor (request: HttpRequest<any>, next: HttpHandlerFn):
 
     if(activeRequest === 0){ loadingService.loadingOn(); } 
         activeRequest++;
-    
+        // request = request.clone({
+        //     withCredentials: true
+        // });
     return next(request).pipe(
         finalize(()=> stopLoader())
     );

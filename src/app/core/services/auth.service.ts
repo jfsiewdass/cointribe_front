@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
 
 import { LoginRequest, LogoutData, RefreshTokenBody, RefreshTokenData, UserData } from '../intefaces/Auth';
@@ -16,7 +16,16 @@ export class AuthService {
 
   private httpClient = inject(HttpClient)
   private router = inject(Router)
-
+  register(body:any):Observable<UserData>{
+    return this.httpClient.post<GenericResponse<UserData>>(`${this.env.apiUrl}${'user/register'}`, body)
+    .pipe(
+      switchMap(response =>
+        response.statusCode == 200
+          ? of(response.data)
+          : throwError(() => response)
+      )
+    );
+  }
   login(body:any):Observable<UserData>{
     return this.httpClient.post<GenericResponse<UserData>>(`${this.env.apiUrl}${'user/login'}`, body)
     .pipe(
@@ -53,5 +62,21 @@ export class AuthService {
   exitSystem(){
     sessionStorage.clear();
     this.router.navigate(['/auth/login']);
+  }
+
+  googleLogin(): Observable<any> {
+    const headers = new HttpHeaders({
+      'Origin': 'http://localhost:4200'
+    });
+    const options = {
+      withCredentials: true
+    };
+    return this.httpClient.get<GenericResponse<any>>(`${this.env.apiUrl}auth/google`, options).pipe(
+      switchMap(response =>
+        response.statusCode === 200
+          ? of(response)
+          : throwError(() => response.message)
+      )
+    )
   }
 }

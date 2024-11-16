@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-lg-12">
-    <h2>Depósitos</h2>
+    <h2>{{ 'deposit.title' | translate }}</h2>
     <mat-card>
       <mat-card-content>
         <form class="m-t-10" [formGroup]="form">
@@ -44,5 +44,5 @@
     </mat-card>
   </div>
 </div>
-<h3>Más recientes</h3>
+<h3>{{ 'deposit.recents' | translate }}</h3>
 <app-transaction [dataSource]="transactions"/>

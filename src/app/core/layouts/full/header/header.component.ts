@@ -10,7 +10,6 @@ import { CommonModule } from '@angular/common';
 import { TranslateModule } from '@ngx-translate/core';
 import { languages } from '../../../mapData/languages';
 import { TranslationService } from '../../../services/translation.service';
-import { SocialAuthService } from '@abacritt/angularx-social-login';
 import { MaterialModule } from '../../../../material.module';
 import { AuthService } from '../../../services/auth.service';
 import { SnackbarService } from '../../../services/snackbar.service';
@@ -34,7 +33,6 @@ export class HeaderComponent {
   constructor(
     private router: Router,
     private translationService: TranslationService,
-    private socialAuthService: SocialAuthService,
     private authService: AuthService,
     private snackbar: SnackbarService
   ) {

@@ -8,7 +8,7 @@
     "sidebar": {
         "home": "INICIO",
         "dashboard": "Tablero",
-        "earn": "Earn",
+        "earn": "Inversión",
         "games":"Juegos"
     },
     "login":{
@@ -28,6 +28,7 @@
         "name": "Nombres",
         "email": "Correo electrónico",
         "password": "Contraseña",
+        "confirm-password": "Confirme su contraseña",
         "signup": "Registrar",
         "has_an_account": "¿Ya tienes cuenta?",
         "signin": "Inicia sesión"
@@ -38,12 +39,17 @@
         "back": "Atras"
     },
     "dashboard": {
-        
+        "balance": "Balance de spot",
+        "withdraw": "Retirar",
+        "deposit": "Depositar",
+        "transfer": "Tranferir",
+        "recents": "Más recientes"
     },
     "investment":{
+        
         "title": "Suscríbete ahora",
         "sub-title": "Puedes suscribirte fácilmente al servicio a plazo bloqueado. Los procesos de distribución, suscripción y canje de recompensas ahora son más ágiles y fáciles de utilizar",
-        "balance": "Balance actual",
+        "balance": "Balance de inversión",
         "storage": "Almacenamiento",
         "to-fill": "para completar",
         "USDT-hour": "USDT/hora",
@@ -51,6 +57,7 @@
         "claim-btn": "Reclamar"
     },
     "deposit":{
+        "title": "Depositar",
         "currency": "Moneda",
         "network": "Red",
         "wallet": "Dirección de depósito",
@@ -59,11 +66,12 @@
         "status": "Estatus",
         "transactionId": "ID Transacción",
         "type": "Transacción",
-        "confirmations": "Confirmaciones"
-        
+        "confirmations": "Confirmaciones",
+        "recents": "Mas recientes"
     },
     "games":{
         "dice":{
+            "balance": "Saldo de juego",
             "title": "Caída de dados",
             "sub-title": "¿Te sientes afortunado? ¡Pon a prueba tu suerte en nuestro emocionante juego llamado Caída de dados!",
             "roll": "Tirar los dados",
@@ -80,8 +88,12 @@
                 "win": "Ganaste",
                 "lose": "Perdiste"
             }
+        },
+        "WITHDRAW": "Withdraw",
+        "DEPOSIT": "Deposit",
+        "dice-game": {
+            "title":"Caída de dados"
         }
-    },
-    "WITHDRAW": "Retiro",
-    "DEPOSIT": "Depósito"
+    }
+    
 }

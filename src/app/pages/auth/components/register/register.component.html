@@ -13,38 +13,39 @@
             </a>
           </div>
 
-          <div class="row m-t-24 custom-row">
-            <div class="col-12">
-              <button mat-stroked-button class="w-100">
-                <div class="d-flex align-items-center">
-                  <img src="/assets/images/svgs/google-icon.svg" alt="google" width="16" class="m-r-8" />
-                  {{ 'register.google' | translate }}
-                </div>
-              </button>
-            </div>
-           
-          </div>
+          
 
           <div class="or-border m-t-20">{{ 'register.or_with' | translate }}</div>
 
-          <form class="m-t-10">
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">{{ 'register.name' | translate }}</mat-label>
-              <input matInput />
+          <form class="m-t-10" [formGroup]="form" (ngSubmit)="submit()">
+            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
+              <mat-label >{{ 'register.name' | translate }}</mat-label>
+              <input matInput  formControlName="name"/>
+              <mat-error *ngIf="form.get('name')?.hasError('required')"> Campo requerido </mat-error>
+              <mat-error *ngIf="form.get('name')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="w-100" color="primary">
+            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
               <mat-label>{{ 'register.email' | translate }}</mat-label>
-              <input matInput type="email" />
+              <input matInput type="text" formControlName="email"/>
+              <mat-error *ngIf="form.get('email')?.hasError('required')"> Campo requerido </mat-error>
+              <mat-error *ngIf="form.get('email')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
+              <mat-error *ngIf="form.get('email')?.hasError('email')"> Correo inválido </mat-error>
             </mat-form-field>
             <!-- password -->
-            <mat-form-field appearance="outline" class="w-100" color="primary">
-              <mat-label class="mat-subtitle-2 f-s-14 f-w-600 m-b-12 d-block">{{ 'register.password' | translate }}</mat-label>
-              <input matInput type="password" />
+            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
+              <mat-label >{{ 'register.password' | translate }}</mat-label>
+              <input matInput type="password" formControlName="password"/>
+              <mat-error *ngIf="form.get('password')?.hasError('required')"> Campo requerido </mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
+              <mat-label >{{ 'register.confirm-password' | translate }}</mat-label>
+              <input matInput type="password" formControlName="confirmPassword"/>
+              <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')"> Campo requerido </mat-error>
             </mat-form-field>
 
-            <a [routerLink]="['/']" mat-flat-button color="primary" class="w-100">
+            <button type="submit" mat-flat-button color="primary" class="w-100">
               {{ 'register.signup' | translate }}
-            </a>
+            </button>
             <!-- input -->
           </form>
           <span class="d-block f-w-500 text-center m-t-24">{{ 'register.has_an_account' | translate }}
