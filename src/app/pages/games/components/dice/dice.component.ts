@@ -57,7 +57,7 @@ export class DiceComponent {
   };
 
   animationCreated(animationItem: AnimationItem): void {
-    animationItem.setSpeed(0.5)
+    animationItem.setSpeed(0.2)
   }
   userData!: UserData | null;
   faArrowsRotate = faArrowsRotate
@@ -93,6 +93,7 @@ export class DiceComponent {
   bets: Map<string, number>;
   betHistory: Map<string, number>;
   winPrice: Map<string, number>;
+  winCounter = 0;
   constructor(private breakpointObserver: BreakpointObserver) {
     this.bets = new Map<string, number>([
       ['pair', 0],
@@ -118,7 +119,7 @@ export class DiceComponent {
   saldoInicial = 100;
   tiempoIntervalo = 1000;
   ngOnInit() {
-    this.combinacionesPerdedoras()
+    // this.combinacionesPerdedoras()
     this.userData = this.tokenService.getUserData();
     
     if (!this.userData?.wallet) {
@@ -167,7 +168,16 @@ export class DiceComponent {
           this.diceFaces[randomSecondDice],
           this.diceFaces[randomThirdDice],
         ];
-
+        if (this.winCounter >= 2) {
+          const getloseNumber = Math.floor(Math.random() * 95);
+          console.log(this.losingCombinations()[getloseNumber]);
+          this.currentFace = [
+            this.diceFaces[this.losingCombinations()[getloseNumber][0]],
+            this.diceFaces[this.losingCombinations()[getloseNumber][1]],
+            this.diceFaces[this.losingCombinations()[getloseNumber][2]],
+          ];
+          this.winCounter = 0
+        }
         if (
           // PAIR
           (this.pair([randomFirstDice, randomSecondDice,randomThirdDice])) ||
@@ -181,6 +191,7 @@ export class DiceComponent {
           (this.record([randomFirstDice, randomSecondDice,randomThirdDice]))
         ) {
           this.result = 'win'
+          this.winCounter++
         } else {
           this.result = 'lose'
           const currentBalance = this.balance.getValue() - amountBet;
@@ -411,7 +422,7 @@ export class DiceComponent {
     this.getBet()
   }
 
-  combinacionesPerdedoras() {
+  losingCombinations():Array<Array<number>> {
     const combinaciones = [];
   
     for (let i = 1; i <= 6; i++) {
@@ -430,13 +441,6 @@ export class DiceComponent {
     return combinaciones;
   }
   openDialog(): void {
-    const dialogRef = this.dialog.open(InstructionsComponent, {
-      //data: {name: this.name(), animal: this.animal()},
-    });
-
-    // dialogRef.afterClosed().subscribe(result => {
-    //   console.log('The dialog was closed');
-      
-    // });
+    this.dialog.open(InstructionsComponent);
   }
 }

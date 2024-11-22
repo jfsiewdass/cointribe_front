@@ -43,13 +43,16 @@ export class DashboardComponent {
   
   ngOnInit() {
     this.userData = this.tokenService.getUserData();
+    this.txService.loadTransactions();
+    console.log(this.userData);
+    
     if (!this.userData?.wallet) {
       this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
     }
+    localStorage.setItem('balance', this.userData?.wallet ? this.userData?.wallet?.balance?.toString(): '')
     this.txService.transactions$.subscribe(transactions => {
       this.transactions = transactions;
     });
-    localStorage.setItem('balance', this.userData?.wallet ? this.userData?.wallet?.balance?.toString(): '')
   }
   more() {
     console.log('more');

@@ -1,0 +1,13 @@
+mat-error {
+    position: relative;
+    bottom: 0;
+    left: 0; /* Adjust spacing if needed */
+    font-size: 12px; /* Adjust font size for readability */
+    height: auto;
+  }
+  .invalid-feedback {
+    margin-top: -20px;
+    padding: 0;
+    line-height: 1;
+    margin-bottom: 10px;
+  }

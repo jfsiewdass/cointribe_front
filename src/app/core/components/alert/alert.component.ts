@@ -12,6 +12,7 @@ import { faCheck, faClose, faExclamationCircle, faInfo, faWarning } from '@forta
 })
 export class AlertComponent {
   faClose = faClose
+  
   constructor(@Inject(MAT_SNACK_BAR_DATA) public data: any) {
     // console.log(data);
   }

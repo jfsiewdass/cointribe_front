@@ -25,13 +25,18 @@
     "register":{
         "google": "registrate con Google",
         "or_with": "o registrate con",
-        "name": "Nombres",
+        "name": "Nombre",
+        "surname": "Apellido",
         "email": "Correo electrónico",
         "password": "Contraseña",
         "confirm-password": "Confirme su contraseña",
         "signup": "Registrar",
         "has_an_account": "¿Ya tienes cuenta?",
         "signin": "Inicia sesión"
+    },
+    "email-confirm": {
+        "title": "¡Gracias por registrarte!",
+        "content": "Para completar tu registro, por favor confirma tu dirección de correo electrónico haciendo clic en el enlace que te hemos enviado."
     },
     "forgot-password":{
         "title": "Olvide mi contraseña",

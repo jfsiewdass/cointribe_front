@@ -20,7 +20,7 @@ export class AuthService {
     return this.httpClient.post<GenericResponse<UserData>>(`${this.env.apiUrl}${'user/register'}`, body)
     .pipe(
       switchMap(response =>
-        response.statusCode == 200
+        response.statusCode == 201
           ? of(response.data)
           : throwError(() => response)
       )
@@ -64,19 +64,24 @@ export class AuthService {
     this.router.navigate(['/auth/login']);
   }
 
-  googleLogin(): Observable<any> {
+  googleLogin(): Observable<any>{
     const headers = new HttpHeaders({
       'Origin': 'http://localhost:4200'
     });
     const options = {
       withCredentials: true
     };
-    return this.httpClient.get<GenericResponse<any>>(`${this.env.apiUrl}auth/google`, options).pipe(
+    return this.httpClient.get(`${this.env.apiUrl}auth/google`, options)
+  }
+
+  confirmEmail(token:string):Observable<boolean>{
+    return this.httpClient.get<GenericResponse<boolean>>(`${this.env.apiUrl}${'user/confirm-email'}`,{ params: { token: token } })
+    .pipe(
       switchMap(response =>
-        response.statusCode === 200
-          ? of(response)
-          : throwError(() => response.message)
+        response.statusCode == 200
+          ? of(response.data)
+          : throwError(() => response)
       )
-    )
+    );
   }
 }

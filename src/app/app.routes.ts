@@ -11,11 +11,11 @@ export const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: '/admin',
+        redirectTo: '/dashboard',
         pathMatch: 'full',
       },
       {
-        path: 'admin',
+        path: 'dashboard',
         loadChildren: () =>
           import('./pages/pages.routes').then((m) => m.PagesRoutes),
         canActivate: [() => {

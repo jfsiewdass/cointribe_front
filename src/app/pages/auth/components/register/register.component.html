@@ -1,55 +1,97 @@
 <div class="blank-layout-container justify-content-center align-items-center bg-light">
   <div class="position-relative row w-100 h-100 bg-gredient justify-content-center">
-    <div class="col-lg-4 d-flex align-items-center">
+    <div class="col-lg-6 d-flex align-items-center">
       <mat-card class="cardWithShadow boxed-auth">
         <mat-card-content class="p-32">
           <div class="text-center">
-            <a [routerLink]="['/dashboard']" style="text-decoration: none;">
-              
+            <a [routerLink]="['/']" style="text-decoration: none;">
+
               <h1 class="d-flex align-items-center justify-content-center">
-                <img src="./assets/images/logos/logo.svg" class="align-middle m-2" alt="logo"  [height]="50"/>
+                <img src="./assets/images/logos/logo.svg" class="align-middle m-2" alt="logo" [height]="50" />
                 <span style="color: #000;font-family: Plus Jakarta Sans;">Cointribe</span>
               </h1>
             </a>
           </div>
-
-          
-
           <div class="or-border m-t-20">{{ 'register.or_with' | translate }}</div>
-
-          <form class="m-t-10" [formGroup]="form" (ngSubmit)="submit()">
-            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
-              <mat-label >{{ 'register.name' | translate }}</mat-label>
-              <input matInput  formControlName="name"/>
-              <mat-error *ngIf="form.get('name')?.hasError('required')"> Campo requerido </mat-error>
-              <mat-error *ngIf="form.get('name')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
-              <mat-label>{{ 'register.email' | translate }}</mat-label>
-              <input matInput type="text" formControlName="email"/>
-              <mat-error *ngIf="form.get('email')?.hasError('required')"> Campo requerido </mat-error>
-              <mat-error *ngIf="form.get('email')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
-              <mat-error *ngIf="form.get('email')?.hasError('email')"> Correo inválido </mat-error>
-            </mat-form-field>
+          <form class="m-t-10 row" [formGroup]="form" (ngSubmit)="submit()">
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <mat-label>{{ 'register.name' | translate }}</mat-label>
+                <input matInput formControlName="firstName" [errorStateMatcher]="matcher" />
+              </mat-form-field>
+              <div
+                *ngIf="form.controls['firstName']?.invalid && (form.controls['firstName']?.dirty || form.controls['firstName']?.touched || isSubmitted)"
+                class="invalid-feedback">
+                <mat-error *ngIf="form.get('firstName')?.hasError('required')"> Campo requerido </mat-error>
+                <mat-error *ngIf="form.get('firstName')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <mat-label>{{ 'register.surname' | translate }}</mat-label>
+                <input matInput formControlName="lastName" [errorStateMatcher]="matcher" />
+              </mat-form-field>
+              <div
+                *ngIf="form.controls['lastName']?.invalid && (form.controls['lastName']?.dirty || form.controls['lastName']?.touched || isSubmitted)"
+                class="invalid-feedback">
+                <mat-error *ngIf="form.get('lastName')?.hasError('required')"> Campo requerido </mat-error>
+                <mat-error *ngIf="form.get('lastName')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <mat-label>{{ 'register.email' | translate }}</mat-label>
+                <input matInput type="text" formControlName="email" [errorStateMatcher]="matcher" />
+              </mat-form-field>
+              <div
+                *ngIf="form.controls['email']?.invalid && (form.controls['email']?.dirty || form.controls['email']?.touched || isSubmitted)"
+                class="invalid-feedback">
+                <mat-error *ngIf="form.get('email')?.hasError('required')"> Campo requerido </mat-error>
+                <mat-error *ngIf="form.get('email')?.hasError('minlength')"> Mínimo 6 caracteres </mat-error>
+                <mat-error *ngIf="form.get('email')?.hasError('email')"> Correo inválido </mat-error>
+              </div>
+            </div>
             <!-- password -->
-            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
-              <mat-label >{{ 'register.password' | translate }}</mat-label>
-              <input matInput type="password" formControlName="password"/>
-              <mat-error *ngIf="form.get('password')?.hasError('required')"> Campo requerido </mat-error>
-            </mat-form-field>
-            <mat-form-field appearance="outline" class="w-100 m-b-12" color="primary">
-              <mat-label >{{ 'register.confirm-password' | translate }}</mat-label>
-              <input matInput type="password" formControlName="confirmPassword"/>
-              <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')"> Campo requerido </mat-error>
-            </mat-form-field>
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <mat-label>{{ 'register.password' | translate }}</mat-label>
+                <input matInput type="password" formControlName="password" [errorStateMatcher]="matcher" />
+                <mat-error *ngIf="form.get('password')?.hasError('required')"> Campo requerido </mat-error>
+              </mat-form-field>
+              <div
+                *ngIf="form.controls['password']?.invalid && (form.controls['password']?.dirty || form.controls['password']?.touched || isSubmitted)"
+                class="invalid-feedback">
+                <mat-error *ngIf="form.get('password')?.hasError('minlength')">Mínimo {{
+                  form.controls['password']?.errors?.['minlength'].requiredLength }} caracteres </mat-error>
+                <mat-error *ngIf="form.get('password')?.hasError('maxlength')">Máximo {{
+                  form.controls['password']?.errors?.['maxlength'].requiredLength }} caracteres </mat-error>
+                <mat-error *ngIf="form.get('password')?.hasError('pattern')">La contraseña no cumple los parámetros
+                  estipulados</mat-error>
+              </div>
+            </div>
+            <div class="col-md-12">
+              <mat-form-field appearance="outline" class="w-100" color="primary">
+                <mat-label>{{ 'register.confirm-password' | translate }}</mat-label>
+                <input matInput type="password" formControlName="confirmPassword" [errorStateMatcher]="matcher" />
+              </mat-form-field>
+              <div
+                *ngIf="form.controls['confirmPassword']?.invalid && (form.controls['confirmPassword']?.dirty || form.controls['confirmPassword']?.touched || isSubmitted)"
+                class="invalid-feedback">
+                <mat-error *ngIf="form.get('confirmPassword')?.hasError('required')"> Campo requerido </mat-error>
+                <mat-error *ngIf="form.get('confirmPassword')?.hasError('minlength')">Mínimo {{
+                  form.controls['confirmPassword']?.errors?.['minlength'].requiredLength }} caracteres </mat-error>
+                <mat-error *ngIf="form.get('confirmPassword')?.hasError('maxlength')">Máximo {{
+                  form.controls['confirmPassword']?.errors?.['minlength'].requiredLength }} caracteres </mat-error>
+                <mat-error *ngIf="form.get('confirmPassword')?.hasError('pattern')">La contraseña no cumple los
+                  parámetros estipulados</mat-error>
+              </div>
+            </div>
 
             <button type="submit" mat-flat-button color="primary" class="w-100">
               {{ 'register.signup' | translate }}
             </button>
-            <!-- input -->
           </form>
           <span class="d-block f-w-500 text-center m-t-24">{{ 'register.has_an_account' | translate }}
-
             <a [routerLink]="['/auth/login']" class="text-decoration-none text-primary f-w-500 f-s-14">
               {{ 'register.signin' | translate }}
             </a>

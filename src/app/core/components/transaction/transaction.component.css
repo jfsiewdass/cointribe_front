@@ -17,3 +17,13 @@
   font-size: 12;
   margin-bottom: 10px;
 }
+
+.arrow_circle_down {
+color: green;
+}
+.arrow_circle_up{
+  color: red;
+}
+.sync_alt {
+color: black;
+}

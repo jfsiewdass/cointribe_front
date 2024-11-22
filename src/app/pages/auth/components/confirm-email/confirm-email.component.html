@@ -1,0 +1,23 @@
+<div class="blank-layout-container d-flex justify-content-center align-items-start bg-light p-t-20">
+
+    <div class="position-relative row justify-content-center">
+        <div class="col-lg-12 d-flex align-items-center">
+            <div>
+                <h1 class="d-flex align-items-center justify-content-center">
+                    <img src="./assets/images/logos/logo.svg" class="align-middle m-2" alt="logo" [height]="50" />
+                    <span style="color: #000;font-family: Plus Jakarta Sans;">Cointribe</span>
+                </h1>
+
+                <mat-card appearance="outlined" color="primary" outlined-outline-color="primary" class="m-10">
+                    <mat-card-content class="text-center">
+                        <div class="d-flex justify-content-center">
+                            <mat-icon fontIcon="error" />
+                            <strong> {{ 'email-confirm.title' | translate }}</strong>
+                        </div>
+                        <p>{{ 'email-confirm.content' | translate }}</p>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

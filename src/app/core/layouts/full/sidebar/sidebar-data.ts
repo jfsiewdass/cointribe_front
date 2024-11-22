@@ -7,20 +7,20 @@ export const navItems: NavItem[] = [
   {
     displayName: 'dashboard',
     iconName: 'dashboard',
-    route: '/admin',
-    active: '/admin'
+    route: '/dashboard',
+    active: '/dashboard'
   },
   {
     displayName: 'earn',
     iconName: 'payments',
-    route: '/admin/earn',
-    active: '/admin/earn'
+    route: '/dashboard/earn',
+    active: '/dashboard/earn'
   },
   {
     displayName: 'games',
     iconName: 'extension',
-    route: '/admin/games',
-    active: '/admin/games'
+    route: '/dashboard/games',
+    active: '/dashboard/games'
   },
   // {
   //   displayName: 'Chips',

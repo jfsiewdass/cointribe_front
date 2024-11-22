@@ -27,10 +27,6 @@ export const PagesRoutes: Routes = [
   },
   {
     path: 'games',
-    component: GamesComponent,
+    loadChildren: () => import('./games/games.routes').then(m => m.GameRoutes),
   },
-  {
-    path: 'dice',
-    component: DiceComponent
-  }
 ];

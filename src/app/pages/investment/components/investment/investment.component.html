@@ -50,6 +50,7 @@
                     color="primary"
                     class="d-flex justify-content-center"
                     *ngIf="!isEarning"
+                    [disabled]="balance == 0.00"
                     (click)="subscribe()">
                     {{ 'investment.subscribe-btn' | translate }}
                   </button>

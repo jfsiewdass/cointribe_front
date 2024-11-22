@@ -17,6 +17,8 @@ export class GoogleRedirectComponent {
   ngOnInit() {
     this._route.queryParams.subscribe(params => {
       const resp = JSON.parse(atob(params['u']))
+      console.log(resp);
+      
       this._tokenService.setAuthToken(resp.token);
       this._tokenService.setRefreshToken(resp.refreshToken)
       

@@ -4,7 +4,7 @@ import { LoadingService } from "../services/loading.service";
 import { inject } from "@angular/core";
 
 export function apiInterceptor (request: HttpRequest<any>, next: HttpHandlerFn): Observable<HttpEvent<any>>{
-
+    const excludedEndpoints = ['/game/bet'];
     let activeRequest = 0; 
     let loadingService = inject(LoadingService);
     let  stopLoader = () => {
@@ -19,7 +19,7 @@ export function apiInterceptor (request: HttpRequest<any>, next: HttpHandlerFn):
     
     if(loadingService.errorInRefresh.getValue()) loadingService.errorInRefresh.next(false)
 
-    if(activeRequest === 0){ loadingService.loadingOn(); } 
+    if(activeRequest === 0 && !excludedEndpoints.includes(request.url)){ loadingService.loadingOn(); } 
         activeRequest++;
         // request = request.clone({
         //     withCredentials: true

@@ -30,7 +30,7 @@ export class InvestmentComponent {
   isEarning: boolean = false
   earn: number = 0.00000000
   counterService = inject(CounterService)
-  hasClaim:boolean = true
+  hasClaim:boolean = false
   balance: number = 0
   startDateStorage: string | null = null
   private tokenService = inject(TokenService)
@@ -38,8 +38,7 @@ export class InvestmentComponent {
   private router = inject(Router)
   ngOnInit() {
     this.userData = this.tokenService.getUserData();
-    console.log(this.userData);
-    
+
     if (!this.userData?.wallet) {
       this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
       this.router.navigate(['/'])
@@ -61,7 +60,9 @@ export class InvestmentComponent {
       }
     }
     this.counterService.counter$.subscribe(value => { this.earn = value })
-    this.counterService.claim$.subscribe(value => { this.hasClaim = value })
+    this.counterService.claim$.subscribe(value => { 
+      this.hasClaim = value 
+    })
     
   }
 
@@ -70,18 +71,22 @@ export class InvestmentComponent {
   }
 
   subscribe() {
+    if (this.balance == 0.00) return;
+    
     this.counterService.startCounter(this.perHour)
     this.isEarning = !this.isEarning
     this.hasClaim = false
   }
   claim() {
-    this.isEarning = !this.isEarning
-    this.hasClaim = false
-    localStorage.removeItem('startDate')
-    this.balance += this.earn
-    this.earn = 0
-    localStorage.setItem('balance', this.balance.toString())
-    this.setProfitPerHour()
+    if (this.isEarning) {
+      this.isEarning = !this.isEarning
+      this.hasClaim = false
+      localStorage.removeItem('startDate')
+      this.balance += this.earn
+      this.earn = 0
+      localStorage.setItem('balance', this.balance.toString())
+      this.setProfitPerHour()
+    }
   }
   setProfitPerHour() {
     let decimalConvert = this.percent / 100;

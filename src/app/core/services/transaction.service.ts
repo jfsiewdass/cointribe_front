@@ -16,11 +16,6 @@ export class WalletService {
   private currentPage = 1;
   private pageSize = 10;
 
-  constructor() {
-    // Cargar los primeros 10 registros al iniciar el servicio
-    this.loadTransactions();
-  }
-
   loadTransactions(page = this.currentPage) {
     this.getTransactions(page).subscribe({
       next: (newTransactions: Array<Transaction>) => {
@@ -43,6 +38,7 @@ export class WalletService {
       )
     );
   }
+  
   transfer(body: any): Observable<any> {
     return this.httpClient.post<GenericResponse<any>>(`${this.env.apiUrl}${'wallet/transfer'}`, body)
     .pipe(
