@@ -26,18 +26,6 @@ export const routes: Routes = [
           }
         }]
       },
-    //   {
-    //     path: 'ui-components',
-    //     loadChildren: () =>
-    //       import('./pages/ui-components/ui-components.routes').then(
-    //         (m) => m.UiComponentsRoutes
-    //       ),
-    //   },
-    //   {
-    //     path: 'extra',
-    //     loadChildren: () =>
-    //       import('./pages/extra/extra.routes').then((m) => m.ExtraRoutes),
-    //   },
     ],
   },
   {

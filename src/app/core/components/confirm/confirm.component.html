@@ -1,0 +1,8 @@
+<h2 mat-dialog-title>Confirmar</h2>
+<mat-dialog-content class="m-2">
+    <p>Está seguro de realizar esta acción?</p>
+</mat-dialog-content>
+<mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-raised-button type="button" class="m-b-20 m-r-20" (click)="dialogRef.close()">Cerrar</button>
+    <button mat-raised-button type="button" color="primary" class="m-b-20 m-r-20" cdkFocusInitial [mat-dialog-close]="confirm()">Aceptar</button>
+</mat-dialog-actions>

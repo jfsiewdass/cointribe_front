@@ -9,7 +9,10 @@
         "home": "INICIO",
         "dashboard": "Tablero",
         "earn": "Inversión",
-        "games":"Juegos"
+        "games": "Juegos",
+        "user": "Usuarios",
+        "withdraw": "Retiros",
+        "bets": "Apuestas"
     },
     "login":{
         "google": "Inicia sesión con Google",
@@ -98,6 +101,11 @@
         "DEPOSIT": "Deposit",
         "dice-game": {
             "title":"Caída de dados"
+        }
+    },
+    "admin": {
+        "users":{
+            "title": "Usuarios"
         }
     }
     

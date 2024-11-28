@@ -17,8 +17,13 @@ export class WalletService {
   private pageSize = 10;
 
   loadTransactions(page = this.currentPage) {
+    if (this.currentPage == 1) 
+      this.transactionsSubject.next([]);
+    
     this.getTransactions(page).subscribe({
       next: (newTransactions: Array<Transaction>) => {
+        console.log(newTransactions);
+        
         this.transactionsSubject.next([...this.transactionsSubject.value, ...newTransactions]);
       }
     });

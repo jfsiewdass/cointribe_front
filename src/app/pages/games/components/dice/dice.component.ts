@@ -35,6 +35,8 @@ import { AnimationOptions, LottieComponent } from 'ngx-lottie';
 import { AnimationItem } from 'lottie-web';
 import { MatDialog } from '@angular/material/dialog';
 import { InstructionsComponent } from './instructions/instructions.component';
+import { GameService } from '../../services/game.service';
+import { DiceBetResponse, Option } from '../../interfaces/dice-response';
 
 @Component({
   selector: 'app-dice',
@@ -94,6 +96,7 @@ export class DiceComponent {
   betHistory: Map<string, number>;
   winPrice: Map<string, number>;
   winCounter = 0;
+  gameService = inject(GameService)
   constructor(private breakpointObserver: BreakpointObserver) {
     this.bets = new Map<string, number>([
       ['pair', 0],
@@ -121,6 +124,7 @@ export class DiceComponent {
   ngOnInit() {
     // this.combinacionesPerdedoras()
     this.userData = this.tokenService.getUserData();
+    console.log(this.userData);
     
     if (!this.userData?.wallet) {
       this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
@@ -154,30 +158,30 @@ export class DiceComponent {
     let amountBet = 0
 
     for (const value of allBets.values()) { amountBet += value }
-    
-
+    const randomFirstDice = this.generateRandomDice()
+    const randomSecondDice = this.generateRandomDice()
+    const randomThirdDice = this.generateRandomDice()
+   
+    this.placeBet([randomFirstDice, randomSecondDice, randomThirdDice])
+    if (this.winCounter > 2) {
+      const getloseNumber = Math.floor(Math.random() * 95);
+      this.currentFace = [
+        this.diceFaces[this.losingCombinations()[getloseNumber][0]],
+        this.diceFaces[this.losingCombinations()[getloseNumber][1]],
+        this.diceFaces[this.losingCombinations()[getloseNumber][2]],
+      ];
+      this.winCounter = 0
+    }
     this.rollingDices()
     setTimeout(() => {
       setTimeout(() => {
-        const randomFirstDice = this.generateRandomDice()
-        const randomSecondDice = this.generateRandomDice()
-        const randomThirdDice = this.generateRandomDice()
         
         this.currentFace = [
           this.diceFaces[randomFirstDice],
           this.diceFaces[randomSecondDice],
           this.diceFaces[randomThirdDice],
         ];
-        if (this.winCounter >= 2) {
-          const getloseNumber = Math.floor(Math.random() * 95);
-          console.log(this.losingCombinations()[getloseNumber]);
-          this.currentFace = [
-            this.diceFaces[this.losingCombinations()[getloseNumber][0]],
-            this.diceFaces[this.losingCombinations()[getloseNumber][1]],
-            this.diceFaces[this.losingCombinations()[getloseNumber][2]],
-          ];
-          this.winCounter = 0
-        }
+        
         if (
           // PAIR
           (this.pair([randomFirstDice, randomSecondDice,randomThirdDice])) ||
@@ -375,7 +379,10 @@ export class DiceComponent {
     ]);
     this.isEnableToRoll = true
   }
-  setBet() {
+  setHistoryBet() {
+    if (this.getAmmountHistoryBet() == 0) {
+      return;
+    }
     if (this.bets != this.betHistory && this.getAmmountBet() <= this.balance.getValue()) {
 
       this.bets = this.betHistory
@@ -415,6 +422,12 @@ export class DiceComponent {
 
     return amount
   }
+  getAmmountHistoryBet() {
+    let amount = 0
+    for (const value of this.betHistory.values()) { amount += value }
+
+    return amount
+  }
   decrease(type: string) {
     if (this.bets.get(type)! > 0) {
       this.bets.set(type, this.bets.get(type)! - 1)
@@ -442,5 +455,27 @@ export class DiceComponent {
   }
   openDialog(): void {
     this.dialog.open(InstructionsComponent);
+  }
+  placeBet(result: Array<number>) {
+    const options: Array<Option> = Array.from(this.bets.entries()).map(([key, value]) => {
+      const multiplier = this.winPrice.get(key);
+      return { name: key, amount: value, multiplierBy: multiplier! }
+    });
+
+    const bet: DiceBetResponse = {
+      options:  options,
+      wallet: this.userData?.wallet.address!,
+      amount: this.getAmmountBet(),
+      result: result
+    }
+    
+    
+    this.gameService.diceBet(bet).subscribe({
+      next: (resp) =>{
+        console.log(resp);
+      }, error: (err) => {
+        console.log(err);
+      },
+    })
   }
 }

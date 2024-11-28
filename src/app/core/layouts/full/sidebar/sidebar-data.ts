@@ -22,16 +22,24 @@ export const navItems: NavItem[] = [
     route: '/dashboard/games',
     active: '/dashboard/games'
   },
-  // {
-  //   displayName: 'Chips',
-  //   iconName: 'info-circle',
-  //   route: '/ui-components/chips',
-  // },
-  // {
-  //   displayName: 'Lists',
-  //   iconName: 'list-details',
-  //   route: '/ui-components/lists',
-  // },
+  {
+    displayName: 'user',
+    iconName: 'account_circle',
+    route: '/dashboard/admin/users',
+    active: '/dashboard/admin/users'
+  },
+  {
+    displayName: 'withdraw',
+    iconName: 'payments',
+    route: '/dashboard/admin/withdrawals',
+    active: '/dashboard/admin/withdrawals'
+  },
+  {
+    displayName: 'bets',
+    iconName: 'casino',
+    route: '/dashboard/admin/bets',
+    active: '/dashboard/admin/bets'
+  },
   // {
   //   displayName: 'Menu',
   //   iconName: 'file-text',

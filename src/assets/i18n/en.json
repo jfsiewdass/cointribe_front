@@ -9,7 +9,10 @@
         "home": "HOME",
         "dashboard": "Dashboard",
         "earn": "Earn",
-        "games":"Games"
+        "games":"Games",
+        "user": "User",
+        "withdraw": "Withdraws",
+        "bets": "Bets"
     },
     "login": {
         "google": "Sign in with Google",
@@ -97,6 +100,11 @@
         "DEPOSIT": "Depósito",
         "dice-game": {
             "title":"Dice Fall Game"
+        }
+    },
+    "admin": {
+        "users":{
+            "title": "Users"
         }
     }
 }

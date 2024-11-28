@@ -1,0 +1,61 @@
+.table {
+    width: 100%;
+  }
+  .table td {
+    text-wrap: wrap !important;
+  }
+  .table-content {
+    
+    font-size: 14px;
+    line-height: 1.2;
+  }
+  .table tr {
+    padding: 30px;
+  }
+  .transaction-content {
+    color: gray;
+    font-size: 12;
+    margin-bottom: 10px;
+  }
+  
+  .arrow_circle_down {
+  color: green;
+  }
+  .arrow_circle_up{
+    color: red;
+  }
+  .sync_alt {
+  color: black;
+  }
+
+  .btn-danger {
+    color: red;
+  }
+
+  .btn-success {
+    color: green;
+  }
+
+  .btn-primary {
+    color: #131667;
+  }
+
+  mat-form-field.small {
+    --mat-form-field-container-height: 40px;
+    --mat-form-field-container-vertical-padding: 8px;
+  }
+
+
+  .mat-icon-button.large {
+
+    width: 48px;
+    height: 48px;
+    line-height: 48px;
+
+    .mat-icon {
+      font-size: 48px;
+      width: 48px;
+      height: 48px;
+      line-height: 48px;
+    }
+  }

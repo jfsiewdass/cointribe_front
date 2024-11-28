@@ -29,7 +29,7 @@ export class ConfirmEmailComponent {
               this.snackbarService.openSnackBar(message, 'success')
               this.router.navigate(['auth/login'])
             }
-          }
+          }, error: (error) => this.snackbarService.openSnackBar(error.message, 'error')
         })
     });
   }

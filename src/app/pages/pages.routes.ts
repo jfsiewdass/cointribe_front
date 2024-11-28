@@ -29,4 +29,8 @@ export const PagesRoutes: Routes = [
     path: 'games',
     loadChildren: () => import('./games/games.routes').then(m => m.GameRoutes),
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./admin/admin.routes').then(m => m.AdminRoutes),
+  },
 ];
