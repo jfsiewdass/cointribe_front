@@ -35,4 +35,16 @@ export class AdminService {
                 )
             );
     }
+
+    changeStatus(id: string): Observable<any> {
+
+        return this.httpClient.patch<GenericResponse<any>>(`${this.env.apiUrl}${'user/change'}`, { id: id })
+            .pipe(
+                switchMap(response =>
+                    response.statusCode == 200
+                        ? of(response.data)
+                        : throwError(() => response)
+                )
+            );
+    }
 }

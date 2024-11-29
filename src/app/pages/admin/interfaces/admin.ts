@@ -1,7 +1,7 @@
 import { FormControl } from "@angular/forms";
 
 export interface User {
-    id: string,
+    _id: string,
     currency: string;
     amount: number;
     confirmations: number;

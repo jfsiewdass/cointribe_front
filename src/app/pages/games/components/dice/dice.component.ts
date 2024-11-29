@@ -470,7 +470,7 @@ export class DiceComponent {
     }
     
     
-    this.gameService.diceBet(bet).subscribe({
+    this.gameService.diceBet(btoa(JSON.stringify(bet))).subscribe({
       next: (resp) =>{
         console.log(resp);
       }, error: (err) => {

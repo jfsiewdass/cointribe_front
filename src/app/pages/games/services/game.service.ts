@@ -15,8 +15,8 @@ export class GameService {
 
   private httpClient = inject(HttpClient)
 
-  diceBet(body:any):Observable<any>{
-    return this.httpClient.post<GenericResponse<any>>(`${this.env.apiUrl}${'games/dice/bet'}`, body)
+  diceBet(bet:string):Observable<any>{
+    return this.httpClient.post<GenericResponse<any>>(`${this.env.apiUrl}${'games/dice/bet'}`, { bet: bet })
     .pipe(
       switchMap(response =>
         response.statusCode == 201

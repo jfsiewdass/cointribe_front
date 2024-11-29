@@ -21,9 +21,7 @@ export class WalletService {
       this.transactionsSubject.next([]);
     
     this.getTransactions(page).subscribe({
-      next: (newTransactions: Array<Transaction>) => {
-        console.log(newTransactions);
-        
+      next: (newTransactions: Array<Transaction>) => {        
         this.transactionsSubject.next([...this.transactionsSubject.value, ...newTransactions]);
       }
     });

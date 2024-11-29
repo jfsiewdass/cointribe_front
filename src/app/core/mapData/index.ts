@@ -11,5 +11,5 @@ export const RoleMap: { [key: number]: string } = {
 
 export const StatusMap: { [key: number]: string } = {
     1: 'ACTIVO',
-    2: 'INACTIVO',
+    0: 'INACTIVO',
 }

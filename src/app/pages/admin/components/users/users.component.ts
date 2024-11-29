@@ -13,7 +13,8 @@ import { ConfirmComponent } from '../../../../core/components/confirm/confirm.co
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { PageEvent } from '@angular/material/paginator';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-
+import {Clipboard} from '@angular/cdk/clipboard';
+import { UserStatusEnum } from '../../../../core/enums/user-enum';
 @Component({
   selector: 'app-users',
   standalone: true,
@@ -46,9 +47,11 @@ export class UsersComponent {
   isMobile: boolean = false
   roleMap = RoleMap
   statusMap = StatusMap
+  userEnum = UserStatusEnum
   @Output() moreTransactions = new EventEmitter<void>();
   private breakpointObserver: BreakpointObserver = inject(BreakpointObserver)
   private snack = inject(SnackbarService)
+  private clipboard = inject(Clipboard)
   form: FormGroup = new FormGroup<UserFilterForm>({
     firstName: new FormControl('', {nonNullable: true, validators:[Validators.minLength(4)]}),
     lastName: new FormControl('', {nonNullable: true, validators:[Validators.minLength(4)]}),
@@ -81,18 +84,25 @@ export class UsersComponent {
     if (hash == '') return 'No wallet set'
     if (!this.isMobile) return hash;
     
-    const first = hash.substring(0, (this.isMobile ? 10 : 30));
+    const first = hash.substring(0, (this.isMobile ? 8 : 30));
     const last = hash.substring(hash.length - 4);
   
     return `${first}...${last}`;
   }
-  confirmUser(): void {
+  confirmUser(item: User): void {
     const dialogRef = this.dialog.open(ConfirmComponent, {
       data: {confirm: this.confirm()},
     });
 
     dialogRef.afterClosed().subscribe(result => {
-      if (result) this.getUsers()
+      
+      if (result) {
+        this.adminService.changeStatus(item._id).subscribe({next:(result) => {
+          const message = `Usuario ${+item.status == this.userEnum.ACTIVO ? 'inactivo' : 'activo'}`
+          this.snack.openSnackBar(message, 'success')
+          this.getUsers()
+        }});
+      }
     });
   }
 
@@ -110,7 +120,6 @@ export class UsersComponent {
     })
   }
   handlePageEvent(e: PageEvent) {
-    console.log(e);
     const query = {
       page: e.pageIndex,
       limit: this.limit
@@ -134,5 +143,9 @@ export class UsersComponent {
       limit: this.limit
     }
     this.getUsers(query)
+  }
+  copy(address: string){
+    this.clipboard.copy(address);
+   
   }
 }

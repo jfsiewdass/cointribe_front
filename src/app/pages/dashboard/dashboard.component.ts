@@ -44,7 +44,6 @@ export class DashboardComponent {
   ngOnInit() {
     this.userData = this.tokenService.getUserData();
     this.txService.loadTransactions();
-    console.log(this.userData);
     
     if (!this.userData?.wallet) {
       this.snackbar.error({ statusCode: 500, message: 'wallet not set' })
