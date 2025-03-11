@@ -1,3 +1,4 @@
+@use "../variables" as var;
 .mat-mdc-raised-button.mat-primary,
 .mat-mdc-raised-button.mat-accent,
 .mat-mdc-raised-button.mat-warn,
@@ -11,11 +12,11 @@
 }
 
 .mdc-button {
-  border-radius: $border-radius;
+  border-radius: var.$border-radius;
 }
 
 .mat-mdc-raised-button {
-  box-shadow: $cardshadow;
+  box-shadow: var.$cardshadow;
 }
 
 .mat-mdc-fab,

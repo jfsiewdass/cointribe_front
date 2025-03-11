@@ -1,3 +1,4 @@
+@use "../variables" as var;
 .blank-layout-container {
   height: 91vh;
   display: flex;
@@ -66,7 +67,7 @@
     width: 100px;
     top: 50%;
     height: 1px;
-    background: $borderColor;
+    background: var.$borderColor;
   }
   &:after {
     content: "";
@@ -75,7 +76,7 @@
     width: 100px;
     top: 50%;
     height: 1px;
-    background: $borderColor;
+    background: var.$borderColor;
   }
 }
 
@@ -93,7 +94,7 @@
   .mdc-notched-outline__leading,
   .mdc-notched-outline__notch,
   .mdc-notched-outline__trailing {
-    border-color: $error !important;
+    border-color: var.$error !important;
   }
 }
 

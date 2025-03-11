@@ -1,4 +1,5 @@
 @use "sass:meta";
+@use "../variables" as var;
 
 @mixin syntax-colors($args...) {
   @each $name, $color in meta.keywords($args) {
@@ -13,27 +14,27 @@
 }
 
 @include syntax-colors(
-  $primary: $primary,
-  $accent: $accent,
-  $success: $success,
-  $warning: $warning,
-  $error: $error,
-  $white: $white,
-  $light: $light,
-  $gray-100: $gray-100,
-  $light-error: $light-error,
-  $light-accent: $light-accent,
-  $light-success: $light-success,
-  $light-warning: $light-warning,
-  $light-primary: $light-primary
+  $primary: var.$primary,
+  $accent: var.$accent,
+  $success: var.$success,
+  $warning: var.$warning,
+  $error: var.$error,
+  $white: var.$white,
+  $light: var.$light,
+  $gray-100: var.$gray-100,
+  $light-error: var.$light-error,
+  $light-accent: var.$light-accent,
+  $light-success: var.$light-success,
+  $light-warning: var.$light-warning,
+  $light-primary: var.$light-primary
 );
 
 .fill-warning svg {
-  fill: $warning;
-  color: $warning;
+  fill: var.$warning;
+  color: var.$warning;
 }
 
 .fill-light svg {
-  fill: $light;
-  color: $light;
+  fill: var.$light;
+  color: var.$light;
 }

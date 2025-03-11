@@ -1,7 +1,8 @@
+@use "../variables" as var;
 // card
 .mat-mdc-card {
   margin-bottom: 30px;
-  border-radius: $border-radius;
+  border-radius: var.$border-radius;
 }
 .mat-mdc-card-header {
   padding: 24px 24px 0;
@@ -12,11 +13,11 @@
 }
 
 .mat-mdc-card {
-  background-color: $cardbg;
+  background-color: var.$cardbg;
 }
 
 .cardWithShadow {
-  box-shadow: $cardshadow;
+  box-shadow: var.$cardshadow;
 }
 
 .mat-mdc-card-title {
@@ -48,13 +49,13 @@
 html .mat-mdc-chip {
   height: 24px;
   font-size: 14px;
-  background-color: $light;
+  background-color: var.$light;
 }
 
 .cardBorder {
   .mdc-card {
     box-shadow: none !important;
-    border: 1px solid $borderColor !important;
+    border: 1px solid var.$borderColor !important;
     &.shadow-none {
       border: 0 !important;
     }

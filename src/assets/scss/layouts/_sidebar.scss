@@ -1,5 +1,6 @@
+@use "../variables" as var;
 .mat-drawer.sidebarNav {
-  width: $sidenav-desktop;
+  width: var.$sidenav-desktop;
   flex-shrink: 0;
   transition: swift-ease-out(width);
   position: absolute;
@@ -12,7 +13,7 @@
 
 .sidebarNav-mini {
   .sidebarNav {
-    width: $sidenav-mini;
+    width: var.$sidenav-mini;
     .profile-bar {
       display: none;
     }
@@ -29,7 +30,7 @@
       }
     }
     &:hover {
-      width: $sidenav-desktop;
+      width: var.$sidenav-desktop;
       .profile-bar {
         display: block;
       }
@@ -56,11 +57,11 @@
 
   .hideMenu {
     overflow: hidden;
-    width: $sidenav-mini;
+    width: var.$sidenav-mini;
   }
 
   .branding {
-    width: $sidenav-mini - 15px;
+    width: var.$sidenav-mini - 15px;
     overflow: hidden;
   }
 
@@ -82,7 +83,7 @@
 @media (min-width: 1024px) {
   .sidebarNav-mini {
     .contentWrapper {
-      margin-left: $sidenav-mini !important;
+      margin-left: var.$sidenav-mini !important;
     }
   }
 }
@@ -132,11 +133,11 @@
       }
       &.activeMenu {
         .mdc-list-item__primary-text {
-          color: $white !important;
+          color: var.$white !important;
         }
 
         .mat-mdc-list-item-icon {
-          color: $white !important;
+          color: var.$white !important;
         }
       }
 
@@ -147,7 +148,7 @@
         height: 20px;
         line-height:0px;
         fill: transparent !important;
-        color: $textPrimary;
+        color: var.$textPrimary;
       }
 
       .mdc-list-item__primary-text {

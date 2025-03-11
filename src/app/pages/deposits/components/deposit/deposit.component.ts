@@ -4,7 +4,7 @@ import { MaterialModule } from '../../../../material.module';
 import { TranslateModule } from '@ngx-translate/core';
 import { Router, RouterModule } from '@angular/router';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { QRCodeModule } from 'angularx-qrcode';
+import { QRCodeComponent } from 'angularx-qrcode';
 import {Clipboard} from '@angular/cdk/clipboard';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 import { TokenService } from '../../../../core/services/token.service';
@@ -17,7 +17,7 @@ import { Transaction } from '../../../../core/intefaces/Transaction';
 @Component({
   selector: 'app-deposit',
   standalone: true,
-  imports: [CommonModule, MaterialModule, TranslateModule, RouterModule, ReactiveFormsModule, QRCodeModule, TransactionComponent],
+  imports: [CommonModule, MaterialModule, TranslateModule, RouterModule, ReactiveFormsModule, TransactionComponent, QRCodeComponent],
   templateUrl: './deposit.component.html',
   styleUrl: './deposit.component.css'
 })

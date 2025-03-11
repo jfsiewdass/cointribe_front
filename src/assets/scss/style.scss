@@ -1,24 +1,16 @@
 @use "@angular/material" as mat;
+@use "variables";
+@use "helpers/color";
+@use "helpers/icon-size";
+@use "themecolors/default_theme" as th;
+@use "overrides/materialoverrides";
+@use "container";
+@use "layouts/layouts";
+@use "grid/grid";
+@use "helpers/custom-flex";
+@use "helpers/index";
+@use "pages/dashboards";
+@use "pages/auth";
+
 @include mat.core();
-
-@import "variables";
-@import "helpers/color";
-@import "helpers/icon-size";
-
-//Theme colors
-
-@import "themecolors/default_theme";
-@include mat.all-component-themes($bluetheme);
-
-//container layout
-@import "overrides/materialoverrides";
-@import "container";
-@import "layouts/layouts";
-@import "grid/grid";
-@import "helpers/custom-flex";
-@import "helpers/index";
-
-
-// pages
-@import "pages/dashboards";
-@import "pages/auth";
+@include mat.all-component-themes(th.$bluetheme);

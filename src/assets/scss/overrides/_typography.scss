@@ -1,3 +1,4 @@
+@use "../variables" as var;
 .mat-subtitle-2,
 .mat-subtitle-1,
 .mat-headline-5,
@@ -6,7 +7,7 @@
 .mat-subtitle-2,
 .mat-body-1,
 .mat-body-2 {
-  color: $textPrimary;
+  color: var.$textPrimary;
 }
 
 
@@ -14,36 +15,36 @@
 
 .mat-headline-5 {
   margin: 0;
-  color: $textPrimary;
+  color: var.$textPrimary;
 }
 
 .mat-headline-6 {
   margin: 0;
-  color: $textPrimary;
+  color: var.$textPrimary;
 }
 
 .mat-subtitle-2 {
   margin: 0;
-  color: $textPrimary;
+  color: var.$textPrimary;
 }
 
 .mat-subtitle-1 {
   margin: 0;
-  color: $textPrimary;
+  color: var.$textPrimary;
 }
 
 .mat-body-1 {
   margin: 0;
-  color: $textPrimary;
+  color: var.$textPrimary;
 }
 
 .mat-body-2 {
   margin: 0;
-  color: $textPrimary;
+  color: var.$textPrimary;
 }
 
 .mdc-list-item__primary-text,
 .mat-drawer-container,
 .mat-drawer {
-  color: $textPrimary;
+  color: var.$textPrimary;
 }

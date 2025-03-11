@@ -7,7 +7,6 @@ import { UserData } from '../../../../core/intefaces/Auth';
 import { TokenService } from '../../../../core/services/token.service';
 import { SnackbarService } from '../../../../core/services/snackbar.service';
 import { Router } from '@angular/router';
-import { AppBalanceComponent } from '../../../../core/components/balance/balance.component';
 
 
 @Component({
@@ -16,8 +15,7 @@ import { AppBalanceComponent } from '../../../../core/components/balance/balance
   imports: [
     MaterialModule,
     CommonModule,
-    TranslateModule,
-    AppBalanceComponent
+    TranslateModule
   ],
   templateUrl: './investment.component.html',
   encapsulation: ViewEncapsulation.None,
